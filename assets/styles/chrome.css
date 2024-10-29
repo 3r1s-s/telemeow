@@ -1,0 +1,58 @@
+.chrome .login-form {
+    display: grid;
+}
+
+.chrome .logo-hero,
+.chrome .login-button,
+.chrome .login-form,
+.chrome .login-title {
+    margin-bottom: 16px;
+}
+
+.chrome .logo-hero, .chrome .modal-icon {
+    width: 128px;
+    height: 128px;
+    flex-shrink: 0;
+}
+
+.chrome .avatar-outer {
+    margin-right: 10px;
+}
+
+.chrome .post-author, .chrome .reply-avatar, .chrome svg {
+    margin-right: 4px;
+}
+
+.chrome .modal {
+    align-self: flex-end;
+}
+
+.chrome .modal::-webkit-scrollbar, .chrome .modal-header::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.chrome .modal-header {
+    height: 2em;
+}
+
+.chrome .menu-button {
+    height: 2.8em;
+}
+
+.chrome .modal-header span, .chrome .reply-user {
+    margin-right: 6px;
+}
+
+.chrome button {
+    outline: none;
+}
+
+.chrome .content::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+
+.chrome .content::-webkit-scrollbar-thumb {
+    background: var(--app-800);
+}
