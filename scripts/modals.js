@@ -246,7 +246,8 @@ function openImage(url) {
     `;
 
     document.querySelector(".view-image-options").innerHTML = `
-    <div class="close-image" onclick="closeImage()">${icon.cross}</div>
+    <div class="image-option" onclick="closeImage()">${icon.cross}</div>
+    <div class="image-option" onclick="shareImage('${url}')">${icon.share}</div>
     `;
 
     modalOuter.style.visibility = "visible";

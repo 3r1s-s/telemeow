@@ -671,3 +671,34 @@ async function fetchChatData() {
     }
 }
 
+function shareImage(url) {
+      let shareData = {
+        files: [new File([fetch(url).then(response => response.blob())], 'image.png', {type: 'image/png'})],
+        url: url,
+      };
+
+      if (!navigator.canShare) {
+        openAlert({
+            title: 'Error',
+            message: `Share API Unavailable`
+        })
+        return;
+      }
+      if (!navigator.canShare(shareData)) {
+        openAlert({
+            title: 'Error',
+            message: `Share data unavailable or invalid`
+        })
+        return;
+      }
+      navigator.share(shareData)
+        .then(() =>
+            tooltip({'title':"Image Shared!",'icon':icon.check})
+        )
+        .catch((e) =>
+            openAlert({
+                title: 'Error',
+                message: `Share data unavailable or invalid`
+            })
+        )
+}
