@@ -51,6 +51,11 @@ function main() {
                 chatPage('home');
             }
         }, 5000);
+        setTimeout(() => {
+            if (page !== "chats") {
+                chatList(true);
+            }
+        }, 10000);
     };
 
     serverWebSocket.onmessage = (event) => {
@@ -627,3 +632,42 @@ function saveProfile() {
         xhttp.send(JSON.stringify(data));
     }
 }
+
+async function fetchChatData() {
+    let chatDataList = [];
+
+    let favedChats = Object.values(chatCache).filter(chat => favoritedChats.includes(chat._id)).sort((a, b) => {
+        return b.last_active - a.last_active;
+    });
+    let unfavedChats = Object.values(chatCache).filter(chat => !favoritedChats.includes(chat._id)).sort((a, b) => {
+        return b.last_active - a.last_active;
+    });
+    let sortedChats = favedChats.concat(unfavedChats);
+
+    for (let chatData of sortedChats) {
+        let chatInfo = {};
+        
+        chatInfo.nickname = chatData.nickname || `${chatData.members.find(v => v !== storage.get("username"))}`;
+        chatInfo.nickname = chatInfo.nickname.sanitize();
+
+        if (chatData.type === 0) {
+            chatInfo.chatIcon = chatData.icon ? `https://uploads.meower.org/icons/${chatData.icon}` : 'assets/images/chat.jpg';
+        } else {
+            const user = chatData.members.find(v => v !== storage.get("username"));
+            let userData = await getUser(`${user}`);
+            chatInfo.chatIcon = avatar(userData).url;
+            chatInfo.isOnline = userList.includes(user);
+        }
+
+        if (postCache[chatData._id] && postCache[chatData._id].length > 0) {
+            let post = postCache[chatData._id][0];
+            chatInfo.recentPost = post.p ? post.p : post.attachments ? post.attachments.length + ' Attachments' : '';
+            chatInfo.recentAuthor = post.author ? post.author._id : null;
+        } else {
+            chatInfo.recentPost = '';
+        }
+
+        chatDataList.push(chatInfo);
+    }
+}
+

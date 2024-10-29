@@ -1200,6 +1200,7 @@ iframe {
     line-height: 20px;
     font-family: inherit;
     background: transparent;
+    align-content: center;
 }
 
 .message-send {
@@ -1867,6 +1868,34 @@ img.embed:active {
     display: block;
     background: var(--app-400);
     border-radius: 10px;
+}
+
+.skeleton-chat-icon {
+    display: block;
+    border-radius: 100px;
+    background: var(--app-400);
+    aspect-ratio: 1 / 1;
+    width: 65px;
+    margin: 5px;
+    border-radius: 100%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.skeleton-chat-text {
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.skeleton-chat-title, .skeleton-chat-preview {
+    display: block;
+    height: 1lh;
+    margin: 5px 0;
+    border-radius: 100px;
+    background: var(--app-400);
 }
 
 .emojis-inner {

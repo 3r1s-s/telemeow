@@ -269,13 +269,14 @@ function chatsPage() {
 
     content.innerHTML = `
         <div class="chats">
+            ${skeletonChats()}
         </div>
     `;
 
     chatList();
 }
 
-async function chatList() {
+async function chatList(x) {
     let chatList = '';
     if (storage.get("username") !== "eri" && storage.get("username") !== "Eris") {
         chatList += `
@@ -378,7 +379,7 @@ async function chatList() {
             </div>
         `;
     }
-
+    if (x) return;
     document.querySelector('.chats').innerHTML = chatList;
 }
 
@@ -632,6 +633,18 @@ function skeletonPosts() {
                 <div class="post-attachments">
                     ${Math.floor(Math.random() * 3) ? '' : `<span class="skeleton-attachment" style="height: ${Math.floor(Math.random() * (600 - 200 + 1)) + 200}px"></span>`}
                 </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function skeletonChats() {
+    return [...Array(10).keys()].map(i => `
+        <div class="chat">
+            <div class="skeleton-chat-icon"></div>
+            <div class="skeleton-chat-text">
+                <span class="skeleton-chat-title" style="width: ${Math.floor(Math.random() * (40 - 20 + 1)) + 20}%"></span>
+                <span class="skeleton-chat-preview" style="width: ${Math.floor(Math.random() * (100 - 40 + 1)) + 40}%"></span>
             </div>
         </div>
     `).join('');
