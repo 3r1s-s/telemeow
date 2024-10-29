@@ -674,7 +674,6 @@ async function fetchChatData() {
 function shareImage(url) {
       let shareData = {
         files: [new File([fetch(url).then(response => response.blob())], url.split('/').pop(), {type: 'image/png'})],
-        url: url,
       };
 
       if (!navigator.canShare) {

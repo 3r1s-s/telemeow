@@ -1354,7 +1354,7 @@ iframe {
     width: 24px;
     height: 24px;
     color: #fff;
-    filter: drop-shadow(0 0 15px #00000080);
+    filter: drop-shadow(0 0 8px #000);
 }
 
 .image-option:active {
