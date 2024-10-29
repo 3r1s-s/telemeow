@@ -71,6 +71,8 @@ function setTheme() {
             document.querySelector('html').classList.add('oled');
         } else if (theme.get() === 'watermelon') {
             document.querySelector('html').classList.add('watermelon');
+        } else if (theme.get() === 'thirteen') {
+            document.querySelector('html').classList.add('thirteen');
         }
     } else {
         document.querySelector('html').classList.add('dark');

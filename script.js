@@ -872,6 +872,13 @@ function settingsAppearance() {
                         <span>OLED</span>
                     </div>
                 </div>
+                <div class="theme-option thirteen" onclick="theme.set('thirteen')">
+                    <div class="theme-colour">
+                    </div>
+                    <div class="theme-name">
+                        <span>Thirteen</span>
+                    </div>
+                </div>
             </div>
         </div>
     `;

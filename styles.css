@@ -106,10 +106,10 @@ a {
     color: var(--app-link);
 }
 
-a:hover {
+/* a:hover {
     text-decoration: underline;
     color: var(--app-link);
-}
+} */
 
 textarea, input[type="text"] {
     resize: none;
