@@ -673,11 +673,12 @@ async function fetchChatData() {
 
 function shareImage(url) {
       let shareData = {
-        files: [new File([fetch(url).then(response => response.blob())], 'image.png', {type: 'image/png'})],
+        files: [new File([fetch(url).then(response => response.blob())], url.split('/').pop(), {type: 'image/png'})],
         url: url,
       };
 
       if (!navigator.canShare) {
+        closeImage();
         openAlert({
             title: 'Error',
             message: `Share API Unavailable`
@@ -685,6 +686,7 @@ function shareImage(url) {
         return;
       }
       if (!navigator.canShare(shareData)) {
+        closeImage();
         openAlert({
             title: 'Error',
             message: `Share data unavailable or invalid`
@@ -692,13 +694,4 @@ function shareImage(url) {
         return;
       }
       navigator.share(shareData)
-        .then(() =>
-            tooltip({'title':"Image Shared!",'icon':icon.check})
-        )
-        .catch((e) =>
-            openAlert({
-                title: 'Error',
-                message: `Share data unavailable or invalid`
-            })
-        )
 }

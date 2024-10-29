@@ -6,7 +6,7 @@ function addAttachment(file) {
     const attachment = {file};
     attachment.req = new Promise((resolve, reject) => {
         attachment.cancel = (message) => {
-            if (message) errorModal(`Failed uploading ${file.name}`, message);
+            if (message) openAlert({title: "Error", message: message});
             xhr.abort();
             element.remove();
             pendingAttachments = pendingAttachments.filter(item => item !== attachment);
@@ -76,6 +76,7 @@ function addAttachment(file) {
         };
         xhr.onerror = (error) => {
             attachment.cancel(error);
+            openAlert({title: "Error", message: error});
         };
         formData.append("file", file);
         xhr.send(formData);

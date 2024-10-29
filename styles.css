@@ -1351,8 +1351,8 @@ iframe {
 }
 
 .image-option {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     color: #fff;
     filter: drop-shadow(0 0 15px #00000080);
 }
@@ -1372,7 +1372,7 @@ iframe {
     right: 25px;
     display: flex;
     flex-direction: row-reverse;
-    gap: 16px;
+    gap: 18px;
 }
 
 .view-image-inner {
