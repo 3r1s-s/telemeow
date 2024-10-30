@@ -154,7 +154,7 @@ const theme = (() => {
 String.prototype.sanitize = function() { 
     return this.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 };
-// why
+
 String.prototype.highlight = function() {
     return this.replace(/(^|\s|<p>)@([\w-]+)(?![^<]*?<\/code>)/g, (match, prefix, username) => {
         return `${prefix}<span id="username" class="highlight" onclick="openProfile('${username}')">@${username}</span>`;
@@ -490,6 +490,7 @@ function createPost(data) {
 
     let attachments = document.createElement('div');
     attachments.classList.add('post-attachments');
+    if (data.attachments && data.attachments.length > 2 && settings.get('disableMosaic') !== 'true') attachments.classList.add('attachment-grid');
     if (data.attachments) {        
         data.attachments.forEach(attachment => {
             const g = attach(attachment);
@@ -709,6 +710,7 @@ function settingsGeneral() {
             <div class="settings-options">
                 <div class="menu-button" id="invisibleTyping" onclick="toggleSetting('invisibleTyping')"><span>Invisible Typing</span><div class="toggle">${icon.check}</div></div>
                 <div class="menu-button" id="sendOnReturn" onclick="toggleSetting('sendOnReturn')"><span>Send on Return</span><div class="toggle">${icon.check}</div></div>
+                <div class="menu-button" id="disableMosaic" onclick="toggleSetting('disableMosaic')"><span>Disable Image Mosaic</span><div class="toggle">${icon.check}</div></div>
             </div>
             <span class="settings-options-title">Accessibility</span>
             <div class="settings-options">
@@ -900,6 +902,25 @@ function settingsAccounts() {
 
     content.innerHTML = `
         <div class="settings">
+            
+        </div>
+    `;
+}
+
+function inboxPage() {
+    page = `inbox`;
+
+    titlebar.set(`Inbox`);
+    titlebar.clear(false);
+    titlebar.show();
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.style = ``;
+
+    content.innerHTML = `
+        <div class="inbox">
             
         </div>
     `;

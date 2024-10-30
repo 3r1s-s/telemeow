@@ -450,6 +450,7 @@ async function sendPost() {
     const message = messageInput().value;
     const posts = document.querySelector(".posts");
     messageInput().value = "";
+    messageInput().disabled = true;
     autoResize();
 
     const replies = document.querySelector(".replies-wrapper");
@@ -464,6 +465,8 @@ async function sendPost() {
     }
     pendingAttachments.length = 0;
     document.querySelector('.attachments-wrapper').innerHTML = '';
+    messageInput().disabled = false;
+
 
     const nonce = Math.random().toString();
 
