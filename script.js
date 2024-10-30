@@ -710,7 +710,7 @@ function settingsGeneral() {
             <div class="settings-options">
                 <div class="menu-button" id="invisibleTyping" onclick="toggleSetting('invisibleTyping')"><span>Invisible Typing</span><div class="toggle">${icon.check}</div></div>
                 <div class="menu-button" id="sendOnReturn" onclick="toggleSetting('sendOnReturn')"><span>Send on Return</span><div class="toggle">${icon.check}</div></div>
-                <div class="menu-button" id="disableMosaic" onclick="toggleSetting('disableMosaic')"><span>Disable Image Mosaic</span><div class="toggle">${icon.check}</div></div>
+                <div class="menu-button" id="disableMosaic" onclick="toggleSetting('disableMosaic')"><span>Disable Attachment Mosaic</span><div class="toggle">${icon.check}</div></div>
             </div>
             <span class="settings-options-title">Accessibility</span>
             <div class="settings-options">
