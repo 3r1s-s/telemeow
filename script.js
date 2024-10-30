@@ -283,7 +283,7 @@ async function chatList(x) {
         <div class="warning">
             <div class="warning-text">
                 <span>This is INCOMPLETE!</span>
-                <small>Also you shouldn't be seeing this you little rascal.</small>
+                <small>Some things may not work, that is to be expected.</small>
             </div>
         </div>
         `;
