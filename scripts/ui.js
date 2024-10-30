@@ -201,7 +201,7 @@ function postEmbeds(links) {
             
             let embeddedElement;
             
-            if (link.includes('tenor.com')) {
+            if (link.includes('tenor.com') && settings.get('enableTenor') === 'true') {
                 const tenorRegex = /\d+$/;
                 const tenorMatch = link.match(tenorRegex);
                 const tenorId = tenorMatch ? tenorMatch[0] : null;
