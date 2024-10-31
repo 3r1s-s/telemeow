@@ -150,7 +150,7 @@ function openProfile(user) {
             ${moderator ? `<div class="menu-button"><span>Moderate</span>${icon.arrow}</div>` : ``}
             </div>
             <div class="menu-options">
-            ${blockedUsers[data.id] ? `<div class="menu-button" onclick="unblock('${data._id}')"><span>Unblock</span>${icon.arrow}</div>` : `<div class="menu-button" onclick="block('${data._id}')"><span>Block</span>${icon.arrow}</div>`}
+            <div class="menu-button" onclick="toggleBlock('${data._id}')"><span>${blockedUsers[data._id] ? 'Unblock' : 'Block'}</span>${icon.arrow}</div>
             </div>
             </div>`
         });

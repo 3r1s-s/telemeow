@@ -863,6 +863,12 @@ iframe {
     padding: 15px;
 }
 
+.menu-user {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .modal .menu-options{
     background: var(--modal-300);
 }
@@ -1513,6 +1519,15 @@ iframe {
 
 .avatar:active {
     opacity: 0.8;
+}
+
+.avatar-small {
+    background-image: var(--image);
+    background-size: cover;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
 }
 
 .post-content {

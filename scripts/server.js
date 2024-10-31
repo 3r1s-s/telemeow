@@ -711,3 +711,39 @@ async function shareImage(url) {
     }
     navigator.share(shareData)
 }
+
+function toggleBlock(user) {
+    let toggle;
+    if (blockedUsers.hasOwnProperty(user)) {
+        toggle = 0;
+        delete blockedUsers[user];
+    } else {
+        toggle = 2;
+        blockedUsers[user] = true;
+    }
+    
+    fetch(`https://api.meower.org/users/${user}/relationship`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "token": storage.get("token")
+        },
+        body: JSON.stringify({
+            state: toggle
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+    })
+    .catch(error => {
+        console.error("error:", error);
+    });
+    closeModal();
+    if (chatCache[page]) {
+        chatPage(page);
+    } else if (page === 'home') {
+        chatPage('home');
+    } else if (page === 'settings.safety') {
+        settingsSafety();
+    }
+}

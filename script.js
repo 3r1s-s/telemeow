@@ -675,6 +675,7 @@ function settingsPage() {
                 <div class="menu-button"><span>Notifications</span>${icon.arrow}</div>
                 <div class="menu-button"><span>Language</span>${icon.arrow}</div>
                 <div class="menu-button"><span>Plugins</span>${icon.arrow}</div>
+                <div class="menu-button" onclick="settingsSafety()"><span>Safety & Privacy</span>${icon.arrow}</div>
             </div>
             <div class="settings-options">
                 <div class="menu-button" onclick="logout()"><span>Log Out</span>${icon.arrow}</div>
@@ -908,6 +909,48 @@ function settingsAccounts() {
     `;
 }
 
+function settingsSafety() {
+    page = `settings.safety`;
+
+    titlebar.set(`Safety & Privacy`);
+    titlebar.clear(false);
+    titlebar.back(`settingsPage()`);
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.innerHTML = ``;
+    content.style = ``;
+
+    let blockedUsersSection = document.createElement('div');
+    blockedUsersSection.classList.add('settings-options');
+
+    const promises = Object.keys(blockedUsers).map(user => {
+        if (blockedUsers[user]) {
+            const g = document.createElement('div');
+            g.classList.add('menu-button');
+            g.setAttribute('onclick', `toggleBlock('${user}')`);
+            
+            return getUser(user).then(data => {
+                g.innerHTML = `<span class="menu-user"><div class="avatar-small" style="--image: ${avatar(data).css};"></div>${user}</span><span>Unblock</span>`;
+                blockedUsersSection.append(g);
+            });
+        }
+        return Promise.resolve();
+    });
+    
+    Promise.all(promises).then(() => {
+        content.innerHTML = `
+            <div class="settings">
+                <span class="settings-options-title">Blocked Users</span>
+                ${blockedUsersSection.outerHTML}
+                <span class="settings-options-sub">Blocked users can't send you messages or add you to groups.</span>
+            </div>
+        `;
+    });
+    
+}
+
 function inboxPage() {
     page = `inbox`;
 
@@ -922,7 +965,7 @@ function inboxPage() {
 
     content.innerHTML = `
         <div class="inbox">
-            
+
         </div>
     `;
 }

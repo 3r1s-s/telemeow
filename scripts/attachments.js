@@ -65,7 +65,7 @@ function addAttachment(file) {
         xhr.upload.onprogress = (ev) => {
             const percentage = `${Number((ev.loaded / ev.total) * 100).toFixed(2)}%`;
             element.querySelector(".attachment-progress").style.setProperty('--pre', `${percentage}`);
-            element.querySelector(".attachment-progress span").innerText = `${percentage}`;
+            element.querySelector(".attachment-progress span").innerText = percentage === "100.00%" ? "Processing..." : `${percentage}`;
         };
         xhr.onload = () => {
             element.querySelector(".attachment-progress").style.setProperty('--pre', `0`);
