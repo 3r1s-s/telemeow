@@ -739,6 +739,17 @@ function toggleBlock(user) {
         console.error("error:", error);
     });
     closeModal();
+    if (toggle === 2) {
+        openAlert({
+            title: 'Success',
+            message: `${user} has been blocked.`
+        })
+    } else if (toggle === 0) {
+        openAlert({
+            title: 'Success',
+            message: `${user} has been unblocked.`
+        })
+    }
     if (chatCache[page]) {
         chatPage(page);
     } else if (page === 'home') {
