@@ -310,7 +310,23 @@ function closeImage() {
 }
 
 function homeModal() {
-    openModal({title: 'Home', body: `<div class="menu-options">${userList.slice(0, -1).map((user) => `<div class="menu-button"><span>${user}</span>${icon.arrow}</div>`).join('')}</div>`});
+    let userSection = document.createElement('div');
+    userSection.classList.add('menu-options');
+
+    const promises = userList.slice(0, -1).map(user => {
+        return getUser(user).then(data => {
+            const g = document.createElement('div');
+            g.classList.add('menu-button');
+            g.setAttribute('onclick', `document.querySelector('.modal-inner').innerHTML = '';openProfile('${user}')`);
+
+            g.innerHTML = `<span class="menu-user"><div class="avatar-small" style="--image: ${avatar(data).css};"></div>${user}</span>${icon.arrow}`;
+            userSection.append(g);
+        });
+    });
+
+    Promise.all(promises).then(() => {
+        openModal({title: 'Home', body: `${userSection.outerHTML}`});
+    });
 }
 
 function emojiInfoModal(data) {

@@ -64,6 +64,16 @@
 
 }
 
+*::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 html {
     margin: 0px;
     padding: 0px;
@@ -866,7 +876,7 @@ iframe {
 .menu-user {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
 }
 
 .modal .menu-options{
