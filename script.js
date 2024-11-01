@@ -715,7 +715,7 @@ function settingsPage() {
                 <div class="menu-button"><span>Plugins</span>${icon.arrow}</div>
                 <div class="menu-button" onclick="settingsSafety()"><span>Safety & Privacy</span>${icon.arrow}</div>
             </div>
-            <div class="settings-options">
+            <div class="settings-options" style="display: ${settings.get('debug') ? 'flex' : 'none'}">
                 <div class="menu-button" onclick="debugPage()"><span>Debug</span>${icon.arrow}</div>
             </div>
             <div class="settings-options">
@@ -763,6 +763,7 @@ function settingsGeneral() {
             <span class="settings-options-sub">These require you to restart the client.</span>
             <span class="settings-options-title">Developer</span>
             <div class="settings-options">
+                <div class="menu-button" id="debugMode" onclick="toggleSetting('debugMode')"><span>Enable Debug Mode</span><div class="toggle">${icon.check}</div></div>
                 <div class="menu-button" id="disableLogs" onclick="toggleSetting('disableLogs')"><span>Disable websocket logs</span><div class="toggle">${icon.check}</div></div>
             </div>
         </div>
