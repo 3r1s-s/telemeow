@@ -342,7 +342,6 @@ iframe {
     border-bottom: 1px solid var(--app-500);
     z-index: 1;
     position: relative;
-    touch-action: pan-y;
     display: flex;
     overflow: scroll;
     overscroll-behavior: contain;
