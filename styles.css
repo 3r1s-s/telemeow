@@ -345,9 +345,8 @@ iframe {
     display: flex;
     overflow: scroll;
     overscroll-behavior: contain;
-    scroll-snap-type: mandatory;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-type: x mandatory;
+
 }
 
 .chat-wrapper {
@@ -358,6 +357,8 @@ iframe {
     flex-direction: row;
     gap: 6px;
     width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 .chat:last-child {
@@ -468,6 +469,8 @@ iframe {
     transition: transform 0.3s ease;
     background-color: var(--app-blue);
     z-index: -1;
+    scroll-snap-align: end;
+    scroll-snap-stop: always;
 }
 
 .chat-option {
