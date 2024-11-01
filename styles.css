@@ -359,7 +359,6 @@ iframe {
     flex-direction: row;
     gap: 6px;
     pointer-events: all;
-    margin-right: 120px;
     width: 100%;
 }
 

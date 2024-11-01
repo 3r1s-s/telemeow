@@ -292,7 +292,7 @@ async function chatList(x) {
     if (settings.get("hideHome") !== 'true') {
         chatList += `
         <div class="chat favourite static" id="home">
-            <div class="chat-wrapper" data-action="chatPage('home')">
+            <div class="chat-wrapper" onclick="chatPage('home')">
                 <div class="chat-icon-svg">${icon.home}</div>
                 <div class="chat-text">
                     <span class="chat-title">Home</span>
@@ -308,7 +308,7 @@ async function chatList(x) {
     if (settings.get("hideInbox") !== 'true') {
         chatList += `
         <div class="chat favourite static" id="inbox">
-            <div class="chat-wrapper" data-action="chatPage('inbox')">
+            <div class="chat-wrapper" onclick="chatPage('inbox')">
                 <div class="chat-icon-svg ${unreadInbox ? 'attention' : ''}">${icon.notifications}</div>
                 <div class="chat-text">
                     <span class="chat-title">Inbox</span>
@@ -379,7 +379,7 @@ async function chatList(x) {
 
         chatList += `
             <div class="chat ${isfave}" id="${chatData._id}">
-                <div class="chat-wrapper" data-action="${action}">
+                <div class="chat-wrapper" onclick="${action}">
                     <div class="chat-icon ${attention}" style="--image: url('${chatIcon}')"></div>
                     <div class="chat-text">
                         <span class="chat-title">${nickname}</span>
