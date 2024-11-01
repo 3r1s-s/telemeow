@@ -715,7 +715,7 @@ function settingsPage() {
                 <div class="menu-button"><span>Plugins</span>${icon.arrow}</div>
                 <div class="menu-button" onclick="settingsSafety()"><span>Safety & Privacy</span>${icon.arrow}</div>
             </div>
-            <div class="settings-options" style="display: ${settings.get('debug') === 'true' ? 'flex' : 'none'}">
+            <div class="settings-options" style="display: ${settings.get('debugMode') === 'true' ? 'flex' : 'none'}">
                 <div class="menu-button" onclick="debugPage()"><span>Debug</span>${icon.arrow}</div>
             </div>
             <div class="settings-options">
