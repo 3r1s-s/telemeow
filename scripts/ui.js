@@ -289,7 +289,17 @@ function chatScrolling() {
     const chats = document.querySelectorAll('.chat');
 
     document.addEventListener('click', event => {
-        if (!event.target.closest('.chat')) {
+        const target = event.target.closest('.chat');
+        if (target) {
+            chats.forEach(chat => {
+                if (chat !== target) {
+                    chat.scroll({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        } else {
             chats.forEach(chat => {
                 chat.scroll({
                     left: 0,
@@ -300,7 +310,17 @@ function chatScrolling() {
     });
 
     document.addEventListener('touchstart', event => {
-        if (!event.target.closest('.chat')) {
+        const target = event.target.closest('.chat');
+        if (target) {
+            chats.forEach(chat => {
+                if (chat !== target) {
+                    chat.scroll({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        } else {
             chats.forEach(chat => {
                 chat.scroll({
                     left: 0,
@@ -308,19 +328,6 @@ function chatScrolling() {
                 });
             });
         }
-    });
-
-    chats.forEach((currentChat) => {
-        currentChat.addEventListener('scroll', () => {
-            chats.forEach(chat => {
-                if (chat !== currentChat) {
-                    chat.scroll({
-                        left: 0,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
     });
 }
 
