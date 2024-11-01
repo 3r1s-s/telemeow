@@ -343,6 +343,12 @@ iframe {
     z-index: 1;
     position: relative;
     touch-action: pan-y;
+    display: flex;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    scroll-snap-type: mandatory;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 .chat-wrapper {
@@ -352,6 +358,9 @@ iframe {
     display: flex;
     flex-direction: row;
     gap: 6px;
+    pointer-events: all;
+    margin-right: 120px;
+    width: 100%;
 }
 
 .chat:last-child {
@@ -458,7 +467,7 @@ iframe {
 
 .chat-options {
     position: absolute;
-    right: 0;
+    right: -120px;
     top: 0;
     height: 100%;
     display: flex;
@@ -486,7 +495,7 @@ iframe {
 }
 
 .chat-option:active.delete {
-    background: var(--app-red-dark);
+    background: var(--app-dark-red);
 }
 
 .logo-hero {

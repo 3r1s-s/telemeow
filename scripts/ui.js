@@ -5,22 +5,18 @@ const slideThreshhold = 100;
 const arrow = document.querySelector('.arrow-indicator');
 
 window.addEventListener('touchstart', function(event) {
-    if (page !== 'settings' && page !== 'chats' && page !== 'login') {
-        touchStartX = event.touches[0].clientX;
+    touchStartX = event.touches[0].clientX;
 
-        if (touchStartX < 50) {
-            arrow.style.transform = 'translateX(-50px)';
-        }
+    if (touchStartX < 50) {
+        arrow.style.transform = 'translateX(-50px)';
     }
 }, false);
 
 window.addEventListener('touchmove', function(event) {
-    if (page !== 'settings' && page !== 'chats' && page !== 'login') {
-        touchEndX = event.touches[0].clientX;
-        let deltaX = touchEndX - touchStartX;
-        if (deltaX > 0 && touchStartX < 50) {
-            arrow.style.transform = `translateX(${Math.min(deltaX, 50) - 50}px)`;
-        }
+    touchEndX = event.touches[0].clientX;
+    let deltaX = touchEndX - touchStartX;
+    if (deltaX > 0 && touchStartX < 50) {
+        arrow.style.transform = `translateX(${Math.min(deltaX, 50) - 50}px)`;
     }
 }, false);
 
@@ -274,86 +270,5 @@ function setAccessibility() {
 
     if (settings.get('underlineLinks') === 'true') {
         document.querySelector('html').classList.add('underline-links');
-    }
-}
-
-function chatGestures() {
-    let touchStartX = 0;
-    let currentX = 0;
-    let isSwiping = false;
-    const maxSlide = -120;
-    const swipeThreshold = 10;
-    let openChat = null;
-    
-    document.querySelectorAll('.chat:not(.static)').forEach(chat => {
-        const chatWrapper = chat.querySelector('.chat-wrapper');
-    
-        chat.addEventListener('touchstart', function(event) {
-            if (openChat && openChat !== chat) {
-                closeOptions(openChat);
-            }
-    
-            touchStartX = event.touches[0].clientX;
-            currentX = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]) || 0;
-            isSwiping = false;
-            openChat = chat;
-        });
-    
-        chat.addEventListener('touchmove', function(event) {
-            let touchMoveX = event.touches[0].clientX;
-            let deltaX = touchMoveX - touchStartX + currentX;
-    
-            isSwiping = Math.abs(deltaX) > swipeThreshold;
-            deltaX = Math.max(maxSlide, Math.min(deltaX, 0));
-    
-            chatWrapper.style.transform = `translateX(${deltaX}px)`;
-        });
-    
-        chat.addEventListener('touchend', function() {
-            let finalPosition = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]);
-    
-            if (finalPosition <= maxSlide / 2) {
-                chatWrapper.style.transform = `translateX(${maxSlide}px)`;
-                openChat = chat;
-            } else {
-                closeOptions(chat);
-            }
-    
-            if (!isSwiping && event.target === chatWrapper) {
-                const action = chatWrapper.getAttribute('data-action');
-                if (action) eval(action);
-                event.preventDefault();
-            }
-        });
-    });
-
-    document.addEventListener('touchstart', function(event) {
-        if (openChat && !openChat.contains(event.target)) {
-            closeOptions(openChat);
-            openChat = null;
-        }
-    });
-
-    document.querySelectorAll('.chat.static').forEach(chat => {
-        const chatWrapper = chat.querySelector('.chat-wrapper');
-
-        chat.addEventListener('touchend', function() {
-            if (!isSwiping && event.target === chatWrapper) {
-                const action = chatWrapper.getAttribute('data-action');
-                if (action) eval(action);
-                event.preventDefault();
-            }
-        });
-    });
-
-    
-    function closeOptions(chat) {
-        const chatWrapper = chat.querySelector('.chat-wrapper');
-        chatWrapper.style.transition = 'background 0.2s cubic-bezier(.2,0,0,1), transform 0.2s';
-        chatWrapper.style.transform = 'translateX(0)';
-
-        setTimeout(() => {
-            chatWrapper.style.transition = 'background 0.2s cubic-bezier(.2,0,0,1)';
-        }, 200);
     }
 }
