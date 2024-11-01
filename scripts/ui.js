@@ -284,3 +284,43 @@ function setAccessibility() {
         document.querySelector('html').classList.add('underline-links');
     }
 }
+
+function chatScrolling() {
+    const chats = document.querySelectorAll('.chat');
+
+    document.addEventListener('click', event => {
+        if (!event.target.closest('.chat')) {
+            chats.forEach(chat => {
+                chat.scroll({
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+
+    document.addEventListener('touchstart', event => {
+        if (!event.target.closest('.chat')) {
+            chats.forEach(chat => {
+                chat.scroll({
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+
+    chats.forEach((currentChat) => {
+        currentChat.addEventListener('scroll', () => {
+            chats.forEach(chat => {
+                if (chat !== currentChat) {
+                    chat.scroll({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+}
+

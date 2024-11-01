@@ -396,7 +396,7 @@ async function chatList(x) {
     if (x) return;
     document.querySelector('.chats').innerHTML = chatList;
 
-    chatGestures();
+    chatScrolling();
 }
 
 function chatPage(chatId) {

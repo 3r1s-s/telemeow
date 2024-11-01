@@ -344,7 +344,7 @@ iframe {
     position: relative;
     display: flex;
     overflow: scroll;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
     scroll-snap-type: x mandatory;
 
 }
