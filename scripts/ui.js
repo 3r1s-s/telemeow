@@ -4,7 +4,12 @@ let touchEndX = 0;
 const slideThreshhold = 100;
 const arrow = document.querySelector('.arrow-indicator');
 
+/*************  ✨ Codeium Command 🌟  *************/
 window.addEventListener('touchstart', function(event) {
+    if (page === 'chats' || page === 'settings' || page === 'login') {
+        return;
+    }
+
     touchStartX = event.touches[0].clientX;
 
     if (touchStartX < 50) {
@@ -13,6 +18,10 @@ window.addEventListener('touchstart', function(event) {
 }, false);
 
 window.addEventListener('touchmove', function(event) {
+    if (page === 'chats' || page === 'settings' || page === 'login') {
+        return;
+    }
+
     touchEndX = event.touches[0].clientX;
     let deltaX = touchEndX - touchStartX;
     if (deltaX > 0 && touchStartX < 50) {
@@ -21,6 +30,10 @@ window.addEventListener('touchmove', function(event) {
 }, false);
 
 window.addEventListener('touchend', function(event) {
+    if (page === 'chats' || page === 'settings' || page === 'login') {
+        return;
+    }
+
     touchEndX = event.changedTouches[0].clientX;
 
     if (touchStartX < 50 && touchEndX - touchStartX > slideThreshhold) {
@@ -29,6 +42,7 @@ window.addEventListener('touchend', function(event) {
 
     arrow.style.transform = 'translateX(-100%)';
 }, false);
+/******  a95483cf-7b35-48b8-9a16-99f60c0fb88e  *******/a
 
 let lastTyped = 0;
 
