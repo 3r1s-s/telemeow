@@ -317,9 +317,10 @@ function chatGestures() {
                 closeOptions(chat);
             }
     
-            if (!isSwiping && event.target === chatWrapper) {
+            if (!isSwiping) {
                 const action = chatWrapper.getAttribute('data-action');
                 if (action) eval(action);
+                event.preventDefault();
             }
         });
     });
