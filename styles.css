@@ -348,7 +348,7 @@ iframe {
 .chat-wrapper {
     background: var(--app-300);
     box-sizing: border-box;
-    transition: background 0.2s cubic-bezier(.2,0,0,1), transform 0.2s;
+    transition: background 0.2s cubic-bezier(.2,0,0,1);
     display: flex;
     flex-direction: row;
     gap: 6px;

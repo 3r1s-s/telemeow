@@ -345,6 +345,11 @@ function chatGestures() {
     
     function closeOptions(chat) {
         const chatWrapper = chat.querySelector('.chat-wrapper');
+        chatWrapper.style.transition = 'background 0.2s cubic-bezier(.2,0,0,1), transform 0.2s';
         chatWrapper.style.transform = 'translateX(0)';
+
+        setTimeout(() => {
+            chatWrapper.style.transition = 'background 0.2s cubic-bezier(.2,0,0,1)';
+        }, 200);
     }
 }
