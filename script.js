@@ -387,7 +387,7 @@ async function chatList(x) {
                     </div>
                 </div>
                 <div class="chat-options">
-                    <div class="chat-option favourite" onclick="favoriteChat('${chatData._id}')">${icon.star}</div>
+                    <div class="chat-option favourite" onclick="favoriteChat('${chatData._id}')">${isfave ? icon.starCross : icon.star}</div>
                     <div class="chat-option delete" onclick="deleteChat('${chatData._id}')">${icon.delete}</div>
                 </div>
             </div>

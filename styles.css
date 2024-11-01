@@ -460,11 +460,7 @@ iframe {
     display: flex;
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    background-color: var(--app-200);
-}
-
-.favourite > .chat-options {
-    background-color: var(--app-300);
+    background-color: var(--app-blue);
 }
 
 .chat-option {
@@ -476,9 +472,17 @@ iframe {
     transition: background 0.2s cubic-bezier(.2,0,0,1);
 }
 
+.chat-option:active {
+    background: var(--app-dark-blue);
+}
+
 .chat-option.delete {
     background: var(--app-red);
     color: #fff;
+}
+
+.chat-option:active.delete {
+    background: var(--app-red-dark);
 }
 
 .logo-hero {
