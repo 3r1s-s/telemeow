@@ -318,6 +318,7 @@ iframe {
 .chats {
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 /* 
 .chats::before {

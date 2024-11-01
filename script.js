@@ -299,6 +299,8 @@ async function chatList(x) {
                     <span class="chat-preview">${userList.length - 1} Users Online</span>
                 </div>
             </div>
+            <div class="chat-options">
+            </div>
         </div>
         `;
     }
@@ -312,6 +314,8 @@ async function chatList(x) {
                     <span class="chat-title">Inbox</span>
                     <span class="chat-preview"></span>
                 </div>
+            </div>
+            <div class="chat-options">
             </div>
         </div>
         `;
@@ -351,7 +355,7 @@ async function chatList(x) {
                 attention = 'online';
             }
         }
-
+        // hide message if its from a blocked user
         if (postCache[chatData._id] && postCache[chatData._id].length > 0) {
             let postCont;
             if (postCache[chatData._id][0].p) {
