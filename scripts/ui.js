@@ -5,18 +5,24 @@ const slideThreshhold = 100;
 const arrow = document.querySelector('.arrow-indicator');
 
 window.addEventListener('touchstart', function(event) {
-    touchStartX = event.touches[0].clientX;
+    if (page !== 'chats' && page !== 'settings' && page !== 'login') {
 
-    if (touchStartX < 50) {
-        arrow.style.transform = 'translateX(-50px)';
+        touchStartX = event.touches[0].clientX;
+        
+        if (touchStartX < 50) {
+            arrow.style.transform = 'translateX(-50px)';
+        }
     }
 }, false);
 
 window.addEventListener('touchmove', function(event) {
-    touchEndX = event.touches[0].clientX;
-    let deltaX = touchEndX - touchStartX;
-    if (deltaX > 0 && touchStartX < 50) {
-        arrow.style.transform = `translateX(${Math.min(deltaX, 50) - 50}px)`;
+    if (page !== 'chats' && page !== 'settings' && page !== 'login') {
+
+        touchEndX = event.touches[0].clientX;
+        let deltaX = touchEndX - touchStartX;x  
+        if (deltaX > 0 && touchStartX < 50) {
+            arrow.style.transform = `translateX(${Math.min(deltaX, 50) - 50}px)`;
+        }
     }
 }, false);
 
@@ -274,6 +280,7 @@ function setAccessibility() {
 }
 
 function chatGestures() {
+    /* Mostly AI (sorry) */
     let touchStartX = 0;
     let currentX = 0;
     let isSwiping = false;
@@ -283,6 +290,7 @@ function chatGestures() {
     
     document.querySelectorAll('.chat:not(.static)').forEach(chat => {
         const chatWrapper = chat.querySelector('.chat-wrapper');
+        let touchStartY, isScrolling;
     
         chat.addEventListener('touchstart', function(event) {
             if (openChat && openChat !== chat) {
@@ -290,23 +298,36 @@ function chatGestures() {
             }
     
             touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
             currentX = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]) || 0;
             isSwiping = false;
+            isScrolling = false;
             openChat = chat;
         });
     
         chat.addEventListener('touchmove', function(event) {
-            let touchMoveX = event.touches[0].clientX;
-            let deltaX = touchMoveX - touchStartX + currentX;
+            const touchMoveX = event.touches[0].clientX;
+            const touchMoveY = event.touches[0].clientY;
     
-            isSwiping = Math.abs(deltaX) > swipeThreshold;
-            deltaX = Math.max(maxSlide, Math.min(deltaX, 0));
+            const deltaX = touchMoveX - touchStartX;
+            const deltaY = touchMoveY - touchStartY;
     
-            chatWrapper.style.transform = `translateX(${deltaX}px)`;
+            if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                isScrolling = true;
+                return; 
+            }
+    
+            let translateX = deltaX + currentX;
+            isSwiping = Math.abs(translateX) > swipeThreshold;
+            translateX = Math.max(maxSlide, Math.min(translateX, 0));
+    
+            chatWrapper.style.transform = `translateX(${translateX}px)`;
         });
     
-        chat.addEventListener('touchend', function() {
-            let finalPosition = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]);
+        chat.addEventListener('touchend', function(event) {
+            if (isScrolling) return; 
+    
+            const finalPosition = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]);
     
             if (finalPosition <= maxSlide / 2) {
                 chatWrapper.style.transform = `translateX(${maxSlide}px)`;
@@ -322,6 +343,7 @@ function chatGestures() {
             }
         });
     });
+    
 
     document.addEventListener('touchstart', function(event) {
         if (openChat && !openChat.contains(event.target)) {
@@ -342,7 +364,6 @@ function chatGestures() {
         });
     });
 
-    
     function closeOptions(chat) {
         const chatWrapper = chat.querySelector('.chat-wrapper');
         chatWrapper.style.transition = 'background 0.2s cubic-bezier(.2,0,0,1), transform 0.2s';
