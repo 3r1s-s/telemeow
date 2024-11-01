@@ -2382,3 +2382,20 @@ img.embed:active {
     align-items: center;
     display: flex;
 }
+
+.json-block {
+    margin: 0 20px;
+    padding: 20px;
+    background: var(--app-100);
+    border: 1px solid var(--app-500);
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-family: 'Reddit Mono', consolas;
+    font-size: 0.75em;
+    overflow: scroll;
+    line-height: 1.25;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}

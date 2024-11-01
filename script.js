@@ -161,6 +161,26 @@ String.prototype.highlight = function() {
     });
 };
 
+const device = {
+    is: {
+      iPhone: /iPhone/.test(navigator.userAgent),
+      iPad: /iPad/.test(navigator.userAgent),
+      iOS: /iPhone|iPad|iPod/.test(navigator.userAgent),
+      android: /Android/.test(navigator.userAgent),
+      mobile: /Mobi|Android/i.test(navigator.userAgent) // matches most mobile browsers
+    },
+    prefers: {
+      language: navigator.language || navigator.userLanguage,
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      reducedTransparency: window.matchMedia('(prefers-reduced-transparency: reduce)').matches
+    },
+    supports: {
+      share: typeof navigator.share === 'function',
+      directDownload: 'download' in document.createElement('a')
+    },
+    userAgent: navigator.userAgent
+  };
+
 setTheme();
 
 setAccessibility();
@@ -696,6 +716,9 @@ function settingsPage() {
                 <div class="menu-button" onclick="settingsSafety()"><span>Safety & Privacy</span>${icon.arrow}</div>
             </div>
             <div class="settings-options">
+                <div class="menu-button" onclick="debugPage()"><span>Debug</span>${icon.arrow}</div>
+            </div>
+            <div class="settings-options">
                 <div class="menu-button" onclick="logout()"><span>Log Out</span>${icon.arrow}</div>
             </div>
             <div class="settings-about">
@@ -984,6 +1007,32 @@ function inboxPage() {
     content.innerHTML = `
         <div class="inbox">
 
+        </div>
+    `;
+}
+
+function debugPage() {
+    page = `debug`;
+
+    titlebar.set(`Debug`);
+    titlebar.clear(false);
+    titlebar.show();
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.style = ``;
+
+    let data = JSON.parse(localStorage.getItem('tele-data')).settings;
+
+    content.innerHTML = `
+        <div class="settings">
+            <span class="settings-options-title">Device</span>
+            <div class="json-block">${JSON.stringify(device, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
+            <span class="settings-options-title">Settings</span>
+            <div class="json-block">${JSON.stringify(data, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
+            <span class="settings-options-title">LocalStorage</span>
+            <div class="json-block">${JSON.stringify(JSON.parse(localStorage.getItem('tele-data')), null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
         </div>
     `;
 }
