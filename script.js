@@ -658,10 +658,12 @@ function skeletonPosts() {
 function skeletonChats() {
     return [...Array(10).keys()].map(i => `
         <div class="chat">
-            <div class="skeleton-chat-icon"></div>
-            <div class="skeleton-chat-text">
-                <span class="skeleton-chat-title" style="width: ${Math.floor(Math.random() * (40 - 20 + 1)) + 20}%"></span>
-                <span class="skeleton-chat-preview" style="width: ${Math.floor(Math.random() * (100 - 40 + 1)) + 40}%"></span>
+            <div class="chat-wrapper">
+                <div class="skeleton-chat-icon"></div>
+                <div class="skeleton-chat-text">
+                    <span class="skeleton-chat-title" style="width: ${Math.floor(Math.random() * (40 - 20 + 1)) + 20}%"></span>
+                    <span class="skeleton-chat-preview" style="width: ${Math.floor(Math.random() * (100 - 40 + 1)) + 40}%"></span>
+                </div>
             </div>
         </div>
     `).join('');
