@@ -277,11 +277,11 @@ function chatGestures() {
     let touchStartX = 0;
     let currentX = 0;
     let isSwiping = false;
-    const maxSlide = -80;
+    const maxSlide = -120;
     const swipeThreshold = 10;
     let openChat = null;
     
-    document.querySelectorAll('.chat').forEach(chat => {
+    document.querySelectorAll('.chat:not(.static)').forEach(chat => {
         const chatWrapper = chat.querySelector('.chat-wrapper');
     
         chat.addEventListener('touchstart', function(event) {
@@ -303,7 +303,6 @@ function chatGestures() {
             deltaX = Math.max(maxSlide, Math.min(deltaX, 0));
     
             chatWrapper.style.transform = `translateX(${deltaX}px)`;
-            chat.querySelector('.chat-options').style.transform = `translateX(${deltaX < maxSlide ? 0 : 100}%)`;
         });
     
         chat.addEventListener('touchend', function() {
@@ -311,30 +310,41 @@ function chatGestures() {
     
             if (finalPosition <= maxSlide / 2) {
                 chatWrapper.style.transform = `translateX(${maxSlide}px)`;
-                chat.querySelector('.chat-options').style.transform = 'translateX(0)';
                 openChat = chat;
             } else {
                 closeOptions(chat);
             }
     
-            if (!isSwiping) {
+            if (!isSwiping && event.target === chatWrapper) {
                 const action = chatWrapper.getAttribute('data-action');
                 if (action) eval(action);
                 event.preventDefault();
             }
         });
     });
-    
+
     document.addEventListener('touchstart', function(event) {
         if (openChat && !openChat.contains(event.target)) {
             closeOptions(openChat);
             openChat = null;
         }
     });
+
+    document.querySelectorAll('.chat.static').forEach(chat => {
+        const chatWrapper = chat.querySelector('.chat-wrapper');
+
+        chat.addEventListener('touchend', function() {
+            if (!isSwiping && event.target === chatWrapper) {
+                const action = chatWrapper.getAttribute('data-action');
+                if (action) eval(action);
+                event.preventDefault();
+            }
+        });
+    });
+
     
     function closeOptions(chat) {
         const chatWrapper = chat.querySelector('.chat-wrapper');
         chatWrapper.style.transform = 'translateX(0)';
-        chat.querySelector('.chat-options').style.transform = 'translateX(100%)';
     }
 }

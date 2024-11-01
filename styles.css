@@ -339,15 +339,16 @@ iframe {
 
 .chat {
     height: 75px;
-    background: var(--app-300);
     border-bottom: 1px solid var(--app-500);
-    transition: background 0.2s cubic-bezier(.2,0,0,1);
     z-index: 1;
     position: relative;
     touch-action: pan-y;
 }
 
 .chat-wrapper {
+    background: var(--app-300);
+    box-sizing: border-box;
+    transition: background 0.2s cubic-bezier(.2,0,0,1), transform 0.2s;
     display: flex;
     flex-direction: row;
     gap: 6px;
@@ -357,11 +358,11 @@ iframe {
     border-bottom: none;
 }
 
-.chat.favourite {
+.favourite .chat-wrapper {
     background: var(--app-400);
 }
 
-.chat:active {
+.chat-wrapper:active {
     background: var(--app-500);
 }
 
@@ -371,6 +372,7 @@ iframe {
     gap: 4px;
     justify-content: center;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .chat-title {
@@ -401,6 +403,7 @@ iframe {
     position: relative;
     box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset;
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 .chat-icon.online::after, .chat-icon-svg.online::after {
@@ -429,7 +432,7 @@ iframe {
     pointer-events: none;
 }
 
-.favourite > .chat-icon.online::after, .favourite > .chat-icon.attention::after, .favourite > .chat-icon-svg.online::after, .favourite > .chat-icon-svg.attention::after {
+.favourite .chat-icon.online::after, .favourite .chat-icon.attention::after, .favourite .chat-icon-svg.online::after, .favourite .chat-icon-svg.attention::after {
     border: 4px solid var(--app-400);
 }
 
@@ -444,6 +447,7 @@ iframe {
     position: relative;
     flex-shrink: 0;
     background: var(--app-700);
+    pointer-events: none;
 }
 
 .chat-icon-svg > svg {
@@ -458,9 +462,9 @@ iframe {
     top: 0;
     height: 100%;
     display: flex;
-    transform: translateX(100%);
     transition: transform 0.3s ease;
     background-color: var(--app-blue);
+    z-index: -1;
 }
 
 .chat-option {
