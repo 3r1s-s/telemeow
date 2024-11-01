@@ -337,13 +337,19 @@ iframe {
 } */
 
 .chat {
-    display: flex;
     height: 75px;
-    gap: 6px;
     background: var(--app-300);
     border-bottom: 1px solid var(--app-500);
     transition: background 0.2s cubic-bezier(.2,0,0,1);
     z-index: 1;
+    position: relative;
+    touch-action: pan-y;
+}
+
+.chat-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
 }
 
 .chat:last-child {
@@ -443,6 +449,35 @@ iframe {
     width: 50%;
     height: 50%;
     color: var(--app-text);
+}
+
+.chat-options {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    background-color: var(--app-200);
+}
+
+.favourite > .chat-options {
+    background-color: var(--app-300);
+}
+
+.chat-option {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s cubic-bezier(.2,0,0,1);
+}
+
+.chat-option.delete {
+    background: var(--app-red);
+    color: #fff;
 }
 
 .logo-hero {

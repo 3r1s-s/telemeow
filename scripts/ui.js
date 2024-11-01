@@ -272,3 +272,68 @@ function setAccessibility() {
         document.querySelector('html').classList.add('underline-links');
     }
 }
+
+function chatGestures() {
+    let touchStartX = 0;
+    let currentX = 0;
+    let isSwiping = false;
+    const maxSlide = -80;
+    const swipeThreshold = 10;
+    let openChat = null;
+    
+    document.querySelectorAll('.chat').forEach(chat => {
+        const chatWrapper = chat.querySelector('.chat-wrapper');
+    
+        chat.addEventListener('touchstart', function(event) {
+            if (openChat && openChat !== chat) {
+                closeOptions(openChat);
+            }
+    
+            touchStartX = event.touches[0].clientX;
+            currentX = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]) || 0;
+            isSwiping = false;
+            openChat = chat;
+        });
+    
+        chat.addEventListener('touchmove', function(event) {
+            let touchMoveX = event.touches[0].clientX;
+            let deltaX = touchMoveX - touchStartX + currentX;
+    
+            isSwiping = Math.abs(deltaX) > swipeThreshold;
+            deltaX = Math.max(maxSlide, Math.min(deltaX, 0));
+    
+            chatWrapper.style.transform = `translateX(${deltaX}px)`;
+            chat.querySelector('.chat-options').style.transform = `translateX(${deltaX < maxSlide ? 0 : 100}%)`;
+        });
+    
+        chat.addEventListener('touchend', function() {
+            let finalPosition = parseFloat(getComputedStyle(chatWrapper).transform.split(',')[4]);
+    
+            if (finalPosition <= maxSlide / 2) {
+                chatWrapper.style.transform = `translateX(${maxSlide}px)`;
+                chat.querySelector('.chat-options').style.transform = 'translateX(0)';
+                openChat = chat;
+            } else {
+                closeOptions(chat);
+            }
+    
+            if (!isSwiping && event.target === chatWrapper) {
+                const action = chatWrapper.getAttribute('data-action');
+                if (action) eval(action);
+            }
+        });
+    });
+    
+    document.addEventListener('touchstart', function(event) {
+        if (openChat && !openChat.contains(event.target)) {
+            closeOptions(openChat);
+            openChat = null;
+        }
+    });
+    
+    function closeOptions(chat) {
+        const chatWrapper = chat.querySelector('.chat-wrapper');
+        chatWrapper.style.transform = 'translateX(0)';
+        chat.querySelector('.chat-options').style.transform = 'translateX(100%)';
+    }
+}

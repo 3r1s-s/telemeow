@@ -758,3 +758,37 @@ function toggleBlock(user) {
         settingsSafety();
     }
 }
+
+function deleteChat(chatId) {
+    closeModal();
+    delete chatCache[chatId];
+    fetch(`https://api.meower.org/chats/${chatId}`, {
+        method: "DELETE",
+        headers: { token: storage.get("token") }
+    });
+    if (page === 'chats') {
+        chatList();
+    }
+}
+
+
+function favoriteChat(chatId) {
+    favoritedChats = favoritedChats.filter(_chatId => chatCache[_chatId]);
+
+    if (favoritedChats.includes(chatId)) {
+        favoritedChats = favoritedChats.filter(_chatId => _chatId !== chatId);
+    } else {
+        favoritedChats.push(chatId);
+    }
+    fetch("https://api.meower.org/me/config", {
+        method: "PATCH",
+        headers: {
+            token: storage.get("token"),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favorited_chats: favoritedChats })
+    });
+    if (page === 'chats') {
+        chatList();
+    }
+}
