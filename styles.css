@@ -358,7 +358,6 @@ iframe {
     display: flex;
     flex-direction: row;
     gap: 6px;
-    pointer-events: all;
     width: 100%;
 }
 
@@ -380,7 +379,6 @@ iframe {
     gap: 4px;
     justify-content: center;
     overflow: hidden;
-    pointer-events: none;
 }
 
 .chat-title {
@@ -411,7 +409,6 @@ iframe {
     position: relative;
     box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset;
     flex-shrink: 0;
-    pointer-events: none;
 }
 
 .chat-icon.online::after, .chat-icon-svg.online::after {
@@ -455,7 +452,6 @@ iframe {
     position: relative;
     flex-shrink: 0;
     background: var(--app-700);
-    pointer-events: none;
 }
 
 .chat-icon-svg > svg {
