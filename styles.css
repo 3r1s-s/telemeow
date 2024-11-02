@@ -359,6 +359,7 @@ iframe {
     width: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    flex-shrink: 0;
 }
 
 .chat:last-child {
@@ -461,13 +462,10 @@ iframe {
 }
 
 .chat-options {
-    position: absolute;
-    right: -120px;
-    top: 0;
     height: 100%;
     display: flex;
     transition: transform 0.3s ease;
-    background-color: var(--app-blue);
+    background-color: var(--app-200);
     z-index: -1;
     scroll-snap-align: end;
     scroll-snap-stop: always;
@@ -482,16 +480,30 @@ iframe {
     transition: background 0.2s cubic-bezier(.2,0,0,1);
 }
 
-.chat-option:active {
+.chat-option.grey {
+    background: #666;
+    color: #fff;
+}
+
+.chat-option.grey:active {
+    background: #444;
+}
+
+.chat-option.blue {
+    background: var(--app-blue);
+    color: #fff;
+}
+
+.chat-option.blue:active {
     background: var(--app-dark-blue);
 }
 
-.chat-option.delete {
+.chat-option.red {
     background: var(--app-red);
     color: #fff;
 }
 
-.chat-option:active.delete {
+.chat-option.red:active {
     background: var(--app-dark-red);
 }
 
@@ -2398,4 +2410,5 @@ img.embed:active {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    text-wrap: nowrap;
 }

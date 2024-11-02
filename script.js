@@ -320,6 +320,7 @@ async function chatList(x) {
                 </div>
             </div>
             <div class="chat-options">
+                <div class="chat-option grey" onclick="settings.set('hideHome', 'true'); chatList();">${icon.hide}</div>
             </div>
         </div>
         `;
@@ -336,6 +337,7 @@ async function chatList(x) {
                 </div>
             </div>
             <div class="chat-options">
+                <div class="chat-option grey" onclick="settings.set('hideInbox', 'true'); chatList();">${icon.hide}</div>
             </div>
         </div>
         `;
@@ -407,8 +409,8 @@ async function chatList(x) {
                     </div>
                 </div>
                 <div class="chat-options">
-                    <div class="chat-option favourite" onclick="favoriteChat('${chatData._id}')">${isfave ? icon.starCross : icon.star}</div>
-                    <div class="chat-option delete" onclick="deleteChat('${chatData._id}')">${icon.delete}</div>
+                    <div class="chat-option blue" onclick="favoriteChat('${chatData._id}')">${isfave ? icon.starCross : icon.star}</div>
+                    <div class="chat-option red" onclick="deleteChat('${chatData._id}')">${icon.delete}</div>
                 </div>
             </div>
         `;
