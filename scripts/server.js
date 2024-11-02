@@ -449,68 +449,83 @@ async function sendPost() {
     if (messageInput().value.trim() === "" && pendingAttachments.length === 0) return;
     const message = messageInput().value;
     const posts = document.querySelector(".posts");
-    messageInput().value = "";
-    messageInput().disabled = true;
-    autoResize();
 
-    const replies = document.querySelector(".replies-wrapper");
-    const replyToIds = Array.from(replies.childNodes).map(replyContainer => replyContainer.getAttribute("data-reply-id"));
-    replies.innerHTML = "";
+    const editWrapper = document.querySelector(".edit-wrapper");
 
-    const attachmentIds = [];
-    for (const attachment of pendingAttachments) {
-        autoResize();
-        attachmentResp = await attachment.req;
-        attachmentIds.push(attachmentResp.id);
-    }
-    pendingAttachments.length = 0;
-    document.querySelector('.attachments-wrapper').innerHTML = '';
-    messageInput().disabled = false;
-
-
-    const nonce = Math.random().toString();
-
-    getUser(storage.get("username")).then(data => {
-        posts.insertAdjacentHTML('afterbegin', createPost({
-            "_id": `placeholder-${nonce}`,
-            "attachments": [],
-            "author": {
-                "_id": `${storage.get("username")}`,
-                "avatar": data.avatar,
-                "avatar_color": data.avatar_color,
-                "flags": data.flags,
-                "pfp_data": data.pfp_data,
-                "uuid": data.uuid
+    if (editWrapper.hasAttribute("data-post-id")) {
+        fetch(`https://api.meower.org/posts?id=${editWrapper.getAttribute("data-post-id")}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                token: storage.get("token")
             },
-            "emojis": [],
-            "error": false,
-            "isDeleted": false,
-            "p": `${message.sanitize()}`,
-            "pinned": false,
-            "post_id": "placeholder",
-            "post_origin": "home",
-            "reactions": [],
-            "reply_to": [],
-            "stickers": [],
-            "t": 'sending...',
-            "type": 1,
-            "u": `${storage.get("username")}`
-        }));
-    });
+            body: JSON.stringify({ content: message })
+        });
+        cancelEdit();
+    } else {
+        messageInput().value = "";
+        messageInput().disabled = true;
+        autoResize();
 
-    const response = await fetch(`https://api.meower.org/${page === "home" ? "home" : `posts/${page}`}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            token: storage.get("token"),
-        },
-        body: JSON.stringify({
-            reply_to: replyToIds,
-            content: message,
-            attachments: attachmentIds.reverse(),
-            nonce,
-        })
-    });
+        const replies = document.querySelector(".replies-wrapper");
+        const replyToIds = Array.from(replies.childNodes).map(replyContainer => replyContainer.getAttribute("data-reply-id"));
+        replies.innerHTML = "";
+
+        const attachmentIds = [];
+        for (const attachment of pendingAttachments) {
+            autoResize();
+            attachmentResp = await attachment.req;
+            attachmentIds.push(attachmentResp.id);
+        }
+        pendingAttachments.length = 0;
+        document.querySelector('.attachments-wrapper').innerHTML = '';
+        messageInput().disabled = false;
+
+        const nonce = Math.random().toString();
+
+        getUser(storage.get("username")).then(data => {
+            posts.insertAdjacentHTML('afterbegin', createPost({
+                "_id": `placeholder-${nonce}`,
+                "attachments": [],
+                "author": {
+                    "_id": `${storage.get("username")}`,
+                    "avatar": data.avatar,
+                    "avatar_color": data.avatar_color,
+                    "flags": data.flags,
+                    "pfp_data": data.pfp_data,
+                    "uuid": data.uuid
+                },
+                "emojis": [],
+                "error": false,
+                "isDeleted": false,
+                "p": `${message.sanitize()}`,
+                "pinned": false,
+                "post_id": "placeholder",
+                "post_origin": "home",
+                "reactions": [],
+                "reply_to": [],
+                "stickers": [],
+                "t": 'sending...',
+                "type": 1,
+                "u": `${storage.get("username")}`
+            }));
+        });
+
+        const response = await fetch(`https://api.meower.org/${page === "home" ? "home" : `posts/${page}`}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: storage.get("token"),
+            },
+            body: JSON.stringify({
+                reply_to: replyToIds,
+                content: message,
+                attachments: attachmentIds.reverse(),
+                nonce,
+            })
+        });
+
+    }
 
     autoResize();
 }

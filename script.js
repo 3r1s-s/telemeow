@@ -487,6 +487,7 @@ function chatPage(chatId) {
                             <div class="message-button message-send" onclick="sendPost();">${icon.send}</div>
                         </div>
                         <div class="attachments-wrapper"></div>
+                        <div class="edit-wrapper"></div>
                     </div>
                     <div class="posts">
 
@@ -638,7 +639,7 @@ function createPost(data) {
             </div>
             <div class="post-wrapper">
                 <div class="post-info">
-                    <span class="post-author" onclick="openProfile('${data.author._id}')">${data.author._id}</span><span class="post-date">${date}</span>
+                    <span class="post-author" onclick="openProfile('${data.author._id}')">${data.author._id}</span><span class="post-date">${date}</span>${data.edited_at ? `<span class="post-edited">(edited)</span>` : ``}
                 </div>
                 ${replies.outerHTML}
                 <div class="post-content">${data.emojis ? meowerEmojis(md.render(data.p), data.emojis).highlight() : md.render(data.p).highlight()}</div>

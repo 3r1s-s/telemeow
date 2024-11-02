@@ -1523,6 +1523,10 @@ iframe {
     background: var(--app-300);
 }
 
+.post.editing {
+    background: var(--app-400);
+}
+
 .post-wrapper {
     display: flex;
     flex-direction: column;
@@ -1551,6 +1555,16 @@ iframe {
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.post-edited {
+    font-weight: 300;
+    font-size: 0.75em;
+    font-style: italic;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.5;
 }
 
 .post-buttons {
@@ -1760,6 +1774,7 @@ img.embed:active {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    height: 1lh;
 }
 
 .reply-content i {
@@ -2411,4 +2426,24 @@ img.embed:active {
     -ms-user-select: text;
     user-select: text;
     text-wrap: nowrap;
+}
+
+.edit-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 25px);
+    align-items: center;
+    font-size: 0.8em;
+}
+
+.edit-wrapper span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.edit-wrapper svg {
+    width: 20px;
+    height: 20px;
 }

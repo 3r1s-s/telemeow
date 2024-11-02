@@ -189,7 +189,10 @@ function postModal(id) {
         body: `
         <div class="post-modal-button" onclick="reply('${id}')"><div>Reply</div><div class="post-modal-icon">${icon.reply}</div></div>
         <div class="post-modal-button" onclick="mention('${id}')"><div>Mention</div><div class="post-modal-icon">${icon.mention}</div></div>
-        ${author === storage.get('username') ? `<div class="post-modal-button" onclick="deletePost('${id}')"><div>Delete</div><div class="post-modal-icon">${icon.delete}</div></div>` : ``}        
+        ${author === storage.get('username') ? `
+        <div class="post-modal-button" onclick="deletePost('${id}')"><div>Delete</div><div class="post-modal-icon">${icon.delete}</div></div>
+        <div class="post-modal-button" onclick="editPost('${page}', '${id}')"><div>Edit</div><div class="post-modal-icon">${icon.edit}</div></div>
+            ` : ``}        
         <div class="post-modal-button" onclick="emojiModal('${id}')"><div>React</div><div class="post-modal-icon">${icon.emoji}</div></div>
         <div class="post-modal-button" ><div>Report</div><div class="post-modal-icon">${icon.report}</div></div>
         `,

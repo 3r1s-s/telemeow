@@ -221,7 +221,7 @@ function postEmbeds(links) {
                 if (tenorId) {
                     embeddedElement = document.createElement('div');
                     embeddedElement.className = 'tenor-gif-embed';
-                    embeddedElement.setAttribute('data-postid', tenorId);
+                    embeddedElement.setAttribute('data-postId', tenorId);
                     embeddedElement.setAttribute('data-share-method', 'host');
                     embeddedElement.setAttribute('data-style', 'width: 100%; height: 100%; border-radius: 5px; max-width: 400px; aspect-ratio: 1 / 1; max-height: 400px;');
                     
@@ -331,3 +331,32 @@ function chatScrolling() {
     });
 }
 
+function editPost(postOrigin, postId) {
+    const post = postCache[postOrigin].find(post => post._id === postId);
+    if (!post) return;
+
+    document.getElementById(postId).classList.add("editing");
+    document.querySelector(".attachments-wrapper").style.display = "none";
+
+    const editWrapper = document.querySelector(".edit-wrapper");
+    editWrapper.dataset.postId = postId;
+    editWrapper.innerHTML = `
+        <span class="edit-info" onclick="jumpToPost('${postId}')">Editing message</span>
+        <span onclick="cancelEdit()">${icon.cross}</span>
+    `;
+
+    messageInput().value = post.p;
+    messageInput().focus();
+    autoResize();
+    closeModal();
+}
+
+function cancelEdit() {
+    document.getElementById(document.querySelector(".edit-wrapper").dataset.postId).classList.remove("editing");
+    const editWrapper = document.querySelector(".edit-wrapper");
+    editWrapper.removeAttribute("data-postId");
+    editWrapper.innerHTML = "";
+    document.querySelector(".attachments-wrapper").style.display = "";
+    messageInput().value = "";
+    autoResize();
+}
