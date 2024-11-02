@@ -339,7 +339,7 @@ function editPost(postOrigin, postId) {
     document.querySelector(".attachments-wrapper").style.display = "none";
 
     const editWrapper = document.querySelector(".edit-wrapper");
-    editWrapper.dataset.postId = postId;
+    editWrapper.setAttribute("data-post-id", postId);
     editWrapper.innerHTML = `
         <span class="edit-info" onclick="jumpToPost('${postId}')">Editing message</span>
         <span onclick="cancelEdit()">${icon.cross}</span>
@@ -354,7 +354,7 @@ function editPost(postOrigin, postId) {
 function cancelEdit() {
     document.getElementById(document.querySelector(".edit-wrapper").dataset.postId).classList.remove("editing");
     const editWrapper = document.querySelector(".edit-wrapper");
-    editWrapper.removeAttribute("data-postId");
+    editWrapper.removeAttribute("data-post-id");
     editWrapper.innerHTML = "";
     document.querySelector(".attachments-wrapper").style.display = "";
     messageInput().value = "";
