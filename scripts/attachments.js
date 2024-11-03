@@ -6,7 +6,7 @@ function addAttachment(file) {
     const attachment = {file};
     attachment.req = new Promise((resolve, reject) => {
         attachment.cancel = (message) => {
-            if (message) openAlert({title: "Error", message: message});
+            if (message) openAlert({title: "Error", message: 'There was an error uploading your attachment.'});
             xhr.abort();
             element.remove();
             pendingAttachments = pendingAttachments.filter(item => item !== attachment);
