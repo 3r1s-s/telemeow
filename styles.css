@@ -2530,14 +2530,20 @@ img.embed:active {
     gap: 10px;
     padding: 0 10px;
     box-sizing: border-box;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: x mandatory;
+}
+
+.user-results {
+    min-height: 100px;
+}
+
+.chats-results {
     min-height: 121px;
 }
 
 .post-results {
     display: flex;
     flex-direction: column;
-    pointer-events: none;
 }
 
 .search-result {

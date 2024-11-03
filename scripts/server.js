@@ -50,12 +50,12 @@ function main() {
             } else if (page === 'home') {
                 chatPage('home');
             }
-        }, 5000);
+        }, 2000);
         setTimeout(() => {
             if (page !== "chats") {
                 chatList(true);
             }
-        }, 10000);
+        }, 5000);
     };
 
     serverWebSocket.onmessage = (event) => {
