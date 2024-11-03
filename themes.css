@@ -1,6 +1,6 @@
 .light {
     --app-text: #1b1b2f;
-    --app-link: #2a52be;
+    --app-link: #382a83;
 
     --app-100: #ffffff;
     --app-200: #f4f4f9;
@@ -11,6 +11,8 @@
     --app-700: #9f9fb0;
     --app-800: #8d8d9c;
     --app-900: #7a7a89;
+
+    --app-accent: #382a83;
     
     --titlebar: rgba(229, 229, 242, 0.8);
 
@@ -40,20 +42,28 @@
     --modal-800: var(--app-800);
     --modal-900: var(--app-900);
 
-    .chat {
+    .chat .chat-wrapper {
         background: var(--app-100);
-    }
-    
-    .chat:active {
-        background: var(--app-500);
-    }
+    } 
 
-    .chat.favourite {
+    .chat.favourite .chat-wrapper {
+        background: var(--app-200);
+    } 
+
+    .chat:active .chat-wrapper {
+        background: var(--app-300);
+    } 
+
+    .chat:active.favourite .chat-wrapper {
+        background: var(--app-400);
+    } 
+
+    .search-outer {
         background: var(--app-200);
     }
 
-    .chat.chat.favourite:active {
-        background: var(--app-500);
+    .search {
+        background: var(--app-400);
     }
 
     .content {
@@ -114,20 +124,28 @@
 
     --titlebar: rgba(12, 12, 12, 0.8);
 
-    .chat {
+    .chat .chat-wrapper {
         background: var(--app-100);
     }
 
-    .chat:active {
+    .chat:active .chat-wrapper {
         background: var(--app-500);
     }
 
-    .chat.favourite {
+    .chat.favourite .chat-wrapper {
         background: var(--app-300);
     }
 
-    .chat.chat.favourite:active {
+    .chat.favourite:active .chat-wrapper {
         background: var(--app-500);
+    }
+
+    .search-outer {
+        background: var(--app-300);
+    }
+
+    .search {
+        background: var(--app-200);
     }
 }
 

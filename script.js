@@ -309,6 +309,17 @@ async function chatList(x) {
         `;
     }
 
+    chatList += `
+    <div class="search-outer">
+        <div class="search">
+            <div class="search-inner">
+                ${icon.search}
+                <span>Search</span>
+            </div>
+        </div>
+    </div>
+    `;
+
     if (settings.get("hideHome") !== 'true') {
         chatList += `
         <div class="chat favourite static" id="home">

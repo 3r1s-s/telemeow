@@ -2448,3 +2448,26 @@ img.embed:active {
     width: 20px;
     height: 20px;
 }
+
+.search-outer {
+    background: var(--app-400);
+    padding: 5px;
+    border-bottom: 1px solid var(--app-500);
+}
+
+.search {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    background: var(--app-300);
+    border-radius: 15px;
+    align-items: center;
+}
+
+.search-inner {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
