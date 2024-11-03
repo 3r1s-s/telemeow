@@ -311,7 +311,7 @@ async function chatList(x) {
 
     chatList += `
     <div class="search-outer">
-        <div class="search">
+        <div class="search" onclick="searchPage();">
             <div class="search-inner">
                 ${icon.search}
                 <span>Search</span>
@@ -1050,4 +1050,85 @@ function debugPage() {
             <div class="json-block">${JSON.stringify(JSON.parse(localStorage.getItem('tele-data')), null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
         </div>
     `;
+}
+
+function searchPage() {
+    page = `search`;
+
+    titlebar.set(`Search`);
+    titlebar.clear(false);
+    titlebar.show();
+    titlebar.back(`chatsPage()`);
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.style = ``;
+
+    content.innerHTML = `
+        <div class="search-page">
+            <div class="search-outer">
+                <div class="search-full">
+                    <div class="search-full-inner">
+                        ${icon.search}
+                        <input type="text" placeholder="Search" class="search-input" id="search-input" oninput="searchResults();">
+                    </div>
+                </div>
+            </div>
+            <span class="search-header">Users</span>
+            <div class="user-results"></div>
+            <span class="search-header">Chats</span>
+            <div class="chats-results"></div>
+            <span class="search-header">Posts</span>
+            <div class="post-results"></div>
+        </div>
+    `;
+
+    const searchInput = document.getElementById('search-input');
+    searchInput.focus();
+    searchResults();
+}
+
+function searchResults() {
+    const searchInput = document.getElementById('search-input');
+    const searchValue = searchInput.value.toLowerCase();
+
+    const userResults = document.querySelector('.user-results');
+    const postResults = document.querySelector('.post-results');
+    const chatsResults = document.querySelector('.chats-results');
+
+    userResults.innerHTML = '';
+    postResults.innerHTML = '';
+    chatsResults.innerHTML = '';
+
+    const userResultsList = Object.values(usersCache).filter(user => user._id.toLowerCase().includes(searchValue));
+    userResultsList.forEach(user => {
+        const userResult = document.createElement('div');
+        userResult.classList.add('search-result');
+        userResult.setAttribute('onclick', `openUserChat('${user._id}')`);
+        userResult.innerHTML = `
+            <div class="avatar-result" style="--image: ${avatar(user).css};"></div>
+            <span class="search-result-name">${user._id.sanitize()}</span>
+        `;
+        userResults.append(userResult);
+    });
+
+    const postResultsList = Object.values(postCache).flat().filter(post => post.p.toLowerCase().includes(searchValue));
+    postResultsList.slice(0, 25).forEach(post => {
+        const postResult = document.createElement('div');
+        postResult.classList.add('search-result');
+        postResults.innerHTML += createPost(post);
+    });
+
+    const chatResultsList = Object.values(chatCache).filter(chat => chat.nickname && chat.nickname.toLowerCase().includes(searchValue));
+    chatResultsList.forEach(chat => {
+        const chatResult = document.createElement('div');
+        chatResult.classList.add('search-result');
+        chatResult.setAttribute('onclick', `chatPage('${chat._id}')`);
+        chatResult.innerHTML = `
+            <div class="avatar-result" style="--image: url(${chat.icon ? `https://uploads.meower.org/icons/${chat.icon}` : `assets/images/chat.jpg`});"></div>
+            <span class="search-result-name">${chat.nickname.sanitize()}</span>
+        `;
+        chatsResults.append(chatResult);
+    });
 }

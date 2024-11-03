@@ -144,7 +144,7 @@
         background: var(--app-300);
     }
 
-    .search {
+    .search, .search-full {
         background: var(--app-200);
     }
 }
