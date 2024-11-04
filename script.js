@@ -237,7 +237,14 @@ function login(user, pass) {
             pswd: pass,
         },
         listener: "auth",
-    }));
+    }).then(resp => resp.json().then(resp => {
+        if (resp.error) {
+            openAlert({
+                title: "Error",
+                message: resp.error,
+            });
+        }
+    })));
 }
 
 function authenticate(user, pass, otp) {
