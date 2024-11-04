@@ -193,6 +193,9 @@ function postModal(id) {
         <div class="post-modal-button" onclick="deletePost('${id}')"><div>Delete</div><div class="post-modal-icon">${icon.delete}</div></div>
         <div class="post-modal-button" onclick="editPost('${page}', '${id}')"><div>Edit</div><div class="post-modal-icon">${icon.edit}</div></div>
             ` : ``}        
+        ${author !== storage.get('username') ? `
+        <div class="post-modal-button" onclick="copy('${postCache[page].find(p => p._id === id).p.sanitize()}');closeModal();tooltip({title:'Copied!',icon:icon.copy})"><div>Copy</div><div class="post-modal-icon">${icon.copyLarge}</div></div>
+            ` : ``}        
         <div class="post-modal-button" onclick="emojiModal('${id}')"><div>React</div><div class="post-modal-icon">${icon.emoji}</div></div>
         <div class="post-modal-button" ><div>Report</div><div class="post-modal-icon">${icon.report}</div></div>
         `,

@@ -171,30 +171,17 @@ function createSearchPost(data) {
     }
 
     if (data.author._id === 'Server') {
-        let post = `
-        <div class="post" id="${data._id}">
-            <div class="avatar-outer">
-            </div>
-            <div class="post-wrapper">
-                <div class="post-content server-post">${data.emojis ? meowerEmojis(md.render(data.p), data.emojis).highlight() : md.render(data.p).highlight()}</div>
-                ${replies.outerHTML}
-                ${attachments.outerHTML}
-                ${reactions.outerHTML}
-            </div>
-        </div>
-        `;
-
-    return post;
+        return
     }
 
     let post = `
         <div class="post" id="${data._id}" onclick="goToPost('${data.post_origin}', '${data._id}')">
             <div class="avatar-outer">
-                <div class="avatar" style="--image: ${avatar(data.author).css}; --color: ${data.author.avatar_color}" onclick="openProfile('${data.author._id}')"></div>
+                <div class="avatar" style="--image: ${avatar(data.author).css}; --color: ${data.author.avatar_color}"></div>
             </div>
             <div class="post-wrapper">
                 <div class="post-info">
-                    <span class="post-author" onclick="openProfile('${data.author._id}')">${data.author._id}</span><span class="post-date">${date}</span>${data.edited_at ? `<span class="post-edited">(edited)</span>` : ``}
+                    <span class="post-author">${data.author._id}</span><span class="post-date">${date}</span>${data.edited_at ? `<span class="post-edited">(edited)</span>` : ``}
                 </div>
                 ${replies.outerHTML}
                 <div class="post-content">${data.emojis ? meowerEmojis(md.render(data.p), data.emojis).highlight() : md.render(data.p).highlight()}</div>
