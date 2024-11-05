@@ -820,11 +820,11 @@ function favoriteChat(chatId) {
 }
 
 function lurkMode(x) {
+    serverWebSocket.close();
     if (x) {
         lurking = true;
+        main();
     } else {
         lurking = false;
     }
-    serverWebSocket.close();
-    main();
 }
