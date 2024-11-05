@@ -44,6 +44,15 @@ function main() {
     serverWebSocket.onclose = () => {
         if (lurking) {
             setCaches();
+            main();
+
+            if (page === "chats" ) {
+                chatsPage();
+            } else if (chatCache[page]) {
+                chatPage(page);
+            } else if (page === 'home') {
+                chatPage('home');
+            }
             return;
         }
         console.info("Connection closed attempting to reconnect...");
@@ -68,7 +77,7 @@ function main() {
     };
 
     serverWebSocket.onmessage = (event) => {
-        if (!settings.get('disableLogs')) {
+        if (settings.get('disableLogs') === 'false') {
             console.log(event.data);
         }
         let data = JSON.parse(event.data);
@@ -823,8 +832,17 @@ function lurkMode(x) {
     serverWebSocket.close();
     if (x) {
         lurking = true;
-        main();
+        if (page === 'chats') {
+            chatList();
+        } else if (page === 'settings') {
+            settingsPage();
+        }
     } else {
         lurking = false;
+        if (page === 'chats') {
+            chatList();
+        } else if (page === 'settings') {
+            settingsPage();
+        }
     }
 }

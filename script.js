@@ -443,7 +443,9 @@ async function chatList(x) {
         `
     }
     if (x) return;
-    document.querySelector('.chats').innerHTML = chatList;
+    if (page === 'chats' && document.querySelector('.chats')) {
+        document.querySelector('.chats').innerHTML = chatList;
+    }
 
     chatScrolling();
 }
@@ -750,7 +752,7 @@ function settingsPage() {
             </div>
             <div class="settings-options">
                 ${ lurking ? `<div class="menu-button" onclick="lurkMode(false)"><span>Exit Lurk Mode</span>${icon.arrow}</div>` : `<div class="menu-button" onclick="openAlert({title: 'Lurk Mode',message: 'You will appear offline but be unable to open chats.',buttons: [{text: 'OK',action: 'lurkMode(true)'},{text: 'Cancel',action: 'closeAlert()'}]});"><span>Lurk Mode</span>${icon.arrow}</div>`}
-                <div class="menu-button" onclick="logout()"><span>Log Out</span>${icon.arrow}</div>
+                <div class="menu-button" onclick="openAlert({title: 'Log Out',message: 'Are you sure you want to log out?',buttons: [{text: 'Log Out',action: 'logout()'}, {text: 'Cancel',action: 'closeAlert()'}]})"><span>Log Out</span>${icon.arrow}</div>
             </div>
             <div class="settings-about">
             <img src="assets/images/telemeow-icon.jpg" width="24px">
@@ -795,7 +797,6 @@ function settingsGeneral() {
             <span class="settings-options-title">Developer</span>
             <div class="settings-options">
                 <div class="menu-button" id="debugMode" onclick="toggleSetting('debugMode')"><span>Enable Debug Mode</span><div class="toggle">${icon.check}</div></div>
-                <div class="menu-button" id="disableLogs" onclick="toggleSetting('disableLogs')"><span>Disable websocket logs</span><div class="toggle">${icon.check}</div></div>
             </div>
         </div>
     `;
@@ -1050,6 +1051,7 @@ function debugPage() {
     titlebar.set(`Debug`);
     titlebar.clear(false);
     titlebar.show();
+    titlebar.back(`settingsPage()`);
 
     navigation.show();
     content.classList.remove('max');
@@ -1060,6 +1062,9 @@ function debugPage() {
 
     content.innerHTML = `
         <div class="settings">
+            <div class="settings-options">
+                <div class="menu-button" id="disableLogs" onclick="toggleSetting('disableLogs')"><span>Disable websocket logs</span><div class="toggle">${icon.check}</div></div>
+            </div>
             <span class="settings-options-title">Device</span>
             <div class="json-block">${JSON.stringify(device, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
             <span class="settings-options-title">Settings</span>
