@@ -1073,4 +1073,11 @@ function debugPage() {
             <div class="json-block">${JSON.stringify(JSON.parse(localStorage.getItem('tele-data')), null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
         </div>
     `;
+
+    const options = document.querySelectorAll('.menu-button');
+    options.forEach(option => {
+        if (settings.get(option.id) === 'true') {
+            option.classList.add('checked');
+        }
+    });
 }
