@@ -237,14 +237,7 @@ function login(user, pass) {
             pswd: pass,
         },
         listener: "auth",
-    }).then(resp => resp.json().then(resp => {
-        if (resp.error) {
-            openAlert({
-                title: "Error",
-                message: resp.error,
-            });
-        }
-    })));
+    }));
 }
 
 function authenticate(user, pass, otp) {
@@ -254,6 +247,10 @@ function authenticate(user, pass, otp) {
     } else if (otp.length === 10) {
         recovery = otp;
     }
+
+    openAlert({
+        title: "Logging in...",
+    });
 
     fetch("https://api.meower.org/auth/login", {
         method: "POST",
