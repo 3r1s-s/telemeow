@@ -17,6 +17,8 @@ let favoritedChats = [];  // [chatId, ...]
 let pendingAttachments = [];
 let unreadInbox = '';
 
+let lurking = false;
+
 let moderator = false;
 
 const content = document.querySelector('.app').querySelector('.content');
@@ -202,15 +204,15 @@ function loginPage() {
         <div class="login-title">TeleMeow</div>
             <div class="login-form">
                 <div class="login-input-container" id="login-username-container">
-                    <input class="login-input" id="login-username" type="text">
+                    <input class="login-input" id="login-username" type="text" autocomplete="username">
                     <label for="login-username">Username</label>
                 </div>
                 <div class="login-input-container" id="login-pass-container">
-                    <input class="login-input" id="login-pass" type="password">
+                    <input class="login-input" id="login-pass" type="password" autocomplete="current-password">
                     <label for="login-pass">Password</label>
                 </div>
                 <div class="login-input-container" style="display: none;" id="login-2fa-container">
-                    <input class="login-input" id="login-2fa" type="text">
+                    <input class="login-input" id="login-2fa" type="text" autocomplete="one-time-code">
                     <label for="login-2fa">Authentication Code</label>
                 </div>
             </div>
@@ -433,6 +435,12 @@ async function chatList(x) {
                 </div>
             </div>
         `;
+    }
+
+    if (lurking) {
+        chatList += `
+        <span class="chats-disclaimer">You are in lurk mode.</span>
+        `
     }
     if (x) return;
     document.querySelector('.chats').innerHTML = chatList;
@@ -741,6 +749,7 @@ function settingsPage() {
                 <div class="menu-button" onclick="debugPage()"><span>Debug</span>${icon.arrow}</div>
             </div>
             <div class="settings-options">
+                ${ lurking ? `<div class="menu-button" onclick="lurkMode(false)"><span>Exit Lurk Mode</span>${icon.arrow}</div>` : `<div class="menu-button" onclick="openAlert({title: 'Lurk Mode',message: 'You will appear offline but be unable to open chats.',buttons: [{text: 'OK',action: 'lurkMode(true)'},{text: 'Cancel',action: 'closeAlert()'}]});"><span>Lurk Mode</span>${icon.arrow}</div>`}
                 <div class="menu-button" onclick="logout()"><span>Log Out</span>${icon.arrow}</div>
             </div>
             <div class="settings-about">
@@ -968,7 +977,8 @@ function settingsAccounts() {
 
     content.innerHTML = `
         <div class="settings">
-            
+            <div class="settings-options">
+            </div>
         </div>
     `;
 }

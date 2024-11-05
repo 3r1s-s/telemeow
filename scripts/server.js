@@ -21,9 +21,13 @@ function main() {
     });
 
     serverWebSocket.onopen = () => {
-        if (storage.get("token") != undefined && storage.get("username") != undefined) {
-            console.info("Logging in...");
-            serverWebSocket.send(JSON.stringify({
+        if (lurking) {
+            closeAlert();
+            console.info("Lurking...");
+        } else {
+            if (storage.get("token") != undefined && storage.get("username") != undefined) {
+                console.info("Logging in...");
+                serverWebSocket.send(JSON.stringify({
                 cmd: "authpswd",
                 val: {
                     username: storage.get("username"),
@@ -31,12 +35,17 @@ function main() {
                 },
                 listener: "auth",
             }));
-        } else {
-            loginPage();
-        };
+            } else {
+                loginPage();
+            };
+        }
     };
 
     serverWebSocket.onclose = () => {
+        if (lurking) {
+            setCaches();
+            return;
+        }
         console.info("Connection closed attempting to reconnect...");
         tooltip({'title':"Disconnected!",'icon':icon.alert});
         reconnecting = true;
@@ -808,4 +817,14 @@ function favoriteChat(chatId) {
     if (page === 'chats') {
         chatList();
     }
+}
+
+function lurkMode(x) {
+    if (x) {
+        lurking = true;
+    } else {
+        lurking = false;
+    }
+    serverWebSocket.close();
+    main();
 }

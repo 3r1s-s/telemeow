@@ -150,7 +150,7 @@ function openProfile(user) {
             ${moderator ? `<div class="menu-button"><span>Moderate</span>${icon.arrow}</div>` : ``}
             </div>
             <div class="menu-options">
-            <div class="menu-button" onclick="toggleBlock('${data._id}')"><span>${blockedUsers[data._id] ? 'Unblock' : 'Block'}</span>${icon.arrow}</div>
+            ${data._id !== storage.get('username') ? `<div class="menu-button" onclick="toggleBlock('${data._id}')"><span>${blockedUsers[data._id] ? 'Unblock' : 'Block'}</span>${icon.arrow}</div>` : ``}
             </div>
             </div>`
         });
