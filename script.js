@@ -17,7 +17,7 @@ let favoritedChats = [];  // [chatId, ...]
 let pendingAttachments = [];
 let unreadInbox = '';
 
-let moderator = true;
+let moderator = false;
 
 const content = document.querySelector('.app').querySelector('.content');
 const app = document.querySelector('.app');
@@ -250,6 +250,7 @@ function authenticate(user, pass, otp) {
 
     openAlert({
         title: "Logging in...",
+        buttons: false,
     });
 
     fetch("https://api.meower.org/auth/login", {
@@ -266,13 +267,16 @@ function authenticate(user, pass, otp) {
             document.getElementById("login-pass-container").style.display = "none";
             document.getElementById("login-username-container").style.display = "none";
             document.getElementById("login-2fa-container").style.display = "block";
+            closeAlert();
         } else {
             login(data.account._id, data.token);
+            closeAlert();
         }
     });
 }
 
 function logout() {
+    serverWebSocket.close();
     storage.clear();
     loginPage();
 }

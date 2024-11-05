@@ -208,6 +208,8 @@ function openAlert(data) {
     const modalInner = document.querySelector(".alert-inner");
     const modal = document.querySelector(".alert");
 
+    document.querySelector(".alert-options").style.display = "flex";
+
     modalInner.innerHTML = ``;
 
     if (data) {
@@ -231,9 +233,19 @@ function openAlert(data) {
             modal.id = '';
         }
 
-        document.querySelector(".alert-options").innerHTML = `
-        <button class="modal-button" onclick="closeAlert()">Close</button>
-        `;
+        let buttons = ``;
+        if (data.buttons) {
+            data.buttons.forEach(button => {
+                buttons += `<button class="modal-button" onclick="${button.action}">${button.text}</button>`;
+            });
+        } else if (data.buttons === false) {
+            buttons = ``;
+            document.querySelector(".alert-options").style.display = "none";
+        } else {
+            buttons = `<button class="modal-button" onclick="closeAlert()">Close</button>`;
+        }
+
+        document.querySelector(".alert-options").innerHTML = buttons;
     }
     modalOuter.style.visibility = "visible";
     modalOuter.classList.add("open");

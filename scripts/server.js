@@ -91,6 +91,8 @@ function main() {
                         blockedUsers[relationship.username] = true;
                     }
                 });
+
+                moderator = data.val.account.permissions > 0;
             }
         } else if (data.cmd === "post" || data.cmd === "inbox_message") {
             let post = data.val;
