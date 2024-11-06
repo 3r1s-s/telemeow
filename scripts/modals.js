@@ -315,6 +315,68 @@ function openImage(url) {
     image.addEventListener('touchend', endDrag);
 }
 
+function openVideo(url) {
+    const modalOuter = document.querySelector(".view-image-outer");
+    const modalInner = document.querySelector(".view-image-inner");
+    const modal = document.querySelector(".view-image");
+
+    const baseURL = url.split('?')[0];
+    const fileName = baseURL.split('/').pop();
+
+    modalInner.innerHTML = `
+    <video class="image-view" src="${url}" alt="${fileName}" autoplay /></video>
+    `;
+
+    document.querySelector(".view-image-options").innerHTML = `
+    <div class="image-option" onclick="closeImage()">${icon.cross}</div>
+    <div class="image-option" onclick="shareImage('${url}')">${icon.share}</div>
+    `;
+
+    modalOuter.style.visibility = "visible";
+    modalOuter.classList.add("open");
+
+
+    const image = document.querySelector(".image-view");
+    image.setAttribute("style", "");
+
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    const maxDragDistance = window.innerHeight / 2;
+
+    function startDrag(e) {
+        startY = e.touches ? e.touches[0].clientY : e.clientY;
+        isDragging = true;
+        image.style.transition = 'none';
+    }
+
+    function onDrag(e) {
+        if (!isDragging) return;
+
+        currentY = e.touches ? e.touches[0].clientY : e.clientY;
+        let dragDistance = currentY - startY;
+
+        if (dragDistance > 0 && dragDistance <= maxDragDistance) {
+            image.style.transform = `translateY(${dragDistance}px) scale(${1 - dragDistance / maxDragDistance / 2})`;
+        }
+    }
+
+    function endDrag() {
+        isDragging = false;
+
+        if (currentY - startY > maxDragDistance / 2) {
+            closeImage();
+        } else {
+            image.style.transition = 'transform 0.3s ease';
+            image.style.transform = 'translateY(0)';
+        }
+    }
+
+    image.addEventListener('touchstart', startDrag);
+    image.addEventListener('touchmove', onDrag);
+    image.addEventListener('touchend', endDrag);
+}
+
 function closeImage() {
     const modalOuter = document.querySelector(".view-image-outer");
     const modalInner = document.querySelector(".view-image-inner");

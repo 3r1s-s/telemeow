@@ -1503,6 +1503,37 @@ iframe {
     border: none;
 }
 
+.media-outer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.play-button {
+    position: absolute;
+    padding: 10px;
+    background: #00000080;
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-button svg {
+    width: 30px;
+    height: 30px;
+}
+
+.image-view::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
 .emoji {
     height: 1lh;
     aspect-ratio: 1 / 1;
