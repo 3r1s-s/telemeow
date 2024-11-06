@@ -105,6 +105,8 @@ function openProfile(user) {
 
         if (data.permissions === 1) {
             badges += icon.crown;
+        } else if (data.permissions > 0) {
+            badges += icon.mod;
         }
 
         if (data._id === `Meowy`) {

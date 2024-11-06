@@ -616,7 +616,7 @@ function saveProfile() {
     const lastfmuser = document.getElementById("edit-lastfmuser").value;
 
     if (pronouns.trim() !== "") {
-        quote = `${quote}\n\n[${pronouns}]\n\n|lastfm:${lastfmuser}|`;
+        quote = `${quote}\n\n${pronouns ? `[${pronouns}]` : ''}\n\n${lastfmuser ? `|lastfm:${lastfmuser}|` : ''}`;
     }
 
     const profilecolor = document.querySelector(".avatar-color").value.substring(1);
