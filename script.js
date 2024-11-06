@@ -512,7 +512,7 @@ function chatPage(chatId) {
                             <div class="message-input-container">
                                 <textarea class="message-input" oninput="autoResize()" placeholder="Send a message to ${name}..."></textarea>
                             </div>
-                            ${settings.get('commandModal') === 'true' ? '<div class="message-button" onclick="commandsModal();">${icon.commands}</div>' : ''}
+                            ${settings.get('commandButton') === 'true' ? `<div class="message-button" onclick="commandsModal();">${icon.commands}</div>` : ``}
                             <div class="message-button" onclick="emojiModal();">${icon.emoji}</div>
                             <div class="message-button message-send" onclick="sendPost();">${icon.send}</div>
                         </div>
@@ -1065,6 +1065,7 @@ function debugPage() {
         <div class="settings">
             <div class="settings-options">
                 <div class="menu-button" id="disableLogs" onclick="toggleSetting('disableLogs')"><span>Disable websocket logs</span><div class="toggle">${icon.check}</div></div>
+                <div class="menu-button" id="commandButton" onclick="toggleSetting('commandButton')"><span>Show commands button</span><div class="toggle">${icon.check}</div></div>
             </div>
             <span class="settings-options-title">Device</span>
             <div class="json-block">${JSON.stringify(device, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>

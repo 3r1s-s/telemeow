@@ -5,6 +5,7 @@ function commandsModal() {
             <div class="menu-options">
                 ${botList}
             </div>
+            <span>This is kinda bad, i just want feedback and/or a direction to go in :3</span>
         `
     });
 }
