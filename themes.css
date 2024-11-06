@@ -97,6 +97,11 @@
     .server-post {
         color: #00000070;
     }
+
+    .modal-outer.open {
+        background-color: rgba(101, 100, 108, 0.8);
+        visibility: visible;
+    }
 }
 
 .oled {

@@ -512,6 +512,7 @@ function chatPage(chatId) {
                             <div class="message-input-container">
                                 <textarea class="message-input" oninput="autoResize()" placeholder="Send a message to ${name}..."></textarea>
                             </div>
+                            ${settings.get('commandModal') === 'true' ? '<div class="message-button" onclick="commandsModal();">${icon.commands}</div>' : ''}
                             <div class="message-button" onclick="emojiModal();">${icon.emoji}</div>
                             <div class="message-button message-send" onclick="sendPost();">${icon.send}</div>
                         </div>

@@ -952,10 +952,6 @@ iframe {
     gap: 8px;
 }
 
-.modal .menu-options{
-    background: var(--modal-300);
-}
-
 .modal .menu-button {
     background: transparent;
 }

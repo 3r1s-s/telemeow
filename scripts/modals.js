@@ -324,7 +324,7 @@ function openVideo(url) {
     const fileName = baseURL.split('/').pop();
 
     modalInner.innerHTML = `
-    <video class="image-view" src="${url}" alt="${fileName}" autoplay /></video>
+    <video class="image-view" src="${url}" alt="${fileName}" autoplay controlsList="nodownload nofullscreen noremoteplayback"/></video>
     `;
 
     document.querySelector(".view-image-options").innerHTML = `
@@ -384,7 +384,16 @@ function closeImage() {
     const image = document.querySelector(".image-view");
     modalOuter.classList.remove("open");
 
+    const video = document.querySelector("video.image-view");
+    if (video ) {
+        video.pause();
+    }
+
     setTimeout(() => {
+        if (video ) {
+            video.removeAttribute("src");
+            video.load();
+        }
         modalOuter.style.visibility = "hidden";
         modalInner.innerHTML = ``;
         document.querySelector(".view-image-options").innerHTML = ``;
