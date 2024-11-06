@@ -1506,6 +1506,7 @@ iframe {
     align-items: center;
     overflow: hidden;
     border-radius: 10px;
+    width: max-content;
 }
 
 .play-button {
