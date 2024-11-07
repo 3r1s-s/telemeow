@@ -1,7 +1,5 @@
 function setPlugins() {
-    const storedData = JSON.parse(localStorage.getItem('tele-data') || '{}');
-    
-    if (storage.get('plugins')) {
+        if (storage.get('plugins')) {
         for (const plugin in storage.get('plugins')) {
             if (storage.get('plugins')[plugin].enabled) {
                 try {
