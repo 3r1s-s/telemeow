@@ -135,7 +135,38 @@ const storage = (() => {
                     localStorage.setItem('tele-data', JSON.stringify(storagedata));
                 }
             }
-        }
+        },
+
+        plugins: {
+            get(plugin, key) {
+                return storagedata.plugins && storagedata.plugins[plugin] && storagedata.plugins[plugin][key];
+            },
+
+            set(plugin, key, value) {
+                if (!storagedata.plugins) {
+                    storagedata.plugins = {};
+                }
+                if (!storagedata.plugins[plugin]) {
+                    storagedata.plugins[plugin] = {};
+                }
+                storagedata.plugins[plugin][key] = value;
+                localStorage.setItem('tele-data', JSON.stringify(storagedata));
+            },
+
+            delete(plugin, key) {
+                if (storagedata.plugins && storagedata.plugins[plugin]) {
+                    delete storagedata.plugins[plugin][key];
+                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
+                }
+            },
+
+            clear(plugin) {
+                if (storagedata.plugins && storagedata.plugins[plugin]) {
+                    delete storagedata.plugins[plugin];
+                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
+                }
+            }
+        },
     };
 })();
 
@@ -181,10 +212,10 @@ const device = {
       directDownload: 'download' in document.createElement('a')
     },
     userAgent: navigator.userAgent
-  };
+};
 
 setTheme();
-
+setPlugins();
 setAccessibility();
 
 function loginPage() {

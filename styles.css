@@ -1501,12 +1501,9 @@ iframe {
 
 .media-outer {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
     overflow: hidden;
     border-radius: 10px;
-    width: max-content;
 }
 
 .play-button {
@@ -1520,6 +1517,8 @@ iframe {
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
+    align-self: center;
 }
 
 .play-button svg {
