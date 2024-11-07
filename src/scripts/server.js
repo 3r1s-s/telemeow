@@ -621,7 +621,7 @@ async function fetchChatData() {
         chatInfo.nickname = chatInfo.nickname.sanitize();
 
         if (chatData.type === 0) {
-            chatInfo.chatIcon = chatData.icon ? `https://uploads.meower.org/icons/${chatData.icon}` : 'assets/images/chat.jpg';
+            chatInfo.chatIcon = chatData.icon ? `https://uploads.meower.org/icons/${chatData.icon}` : 'src/assets/images/chat.jpg';
         } else {
             const user = chatData.members.find(v => v !== storage.get("username"));
             let userData = await getUser(`${user}`);

@@ -419,7 +419,7 @@ async function chatList(x) {
             if (chatData.icon) {
                 chatIcon = `https://uploads.meower.org/icons/${chatData.icon}`;
             } else {
-                chatIcon = 'assets/images/chat.jpg';
+                chatIcon = 'src/assets/images/chat.jpg';
             }
         } else {
             const user = chatData.members.find(v => v !== storage.get("username"));
@@ -787,7 +787,7 @@ function settingsPage() {
                 <div class="menu-button" onclick="openAlert({title: 'Log Out',message: 'Are you sure you want to log out?',buttons: [{text: 'Log Out',action: 'logout()'}, {text: 'Cancel',action: 'closeAlert()'}]})"><span>Log Out</span>${icon.arrow}</div>
             </div>
             <div class="settings-about">
-            <img src="assets/images/telemeow-icon.jpg" width="24px">
+            <img src="src/assets/images/telemeow-icon.jpg" width="24px">
             <span style="font-weight: 600;">TeleMeow</span>
             <span style="font-size: 0.75em;opacity:0.6;">0.0.0</span>
             </div>

@@ -25,7 +25,7 @@ function emojiModal(id) {
         if (chat.icon) {
             chatIcon = `https://uploads.meower.org/icons/${chat.icon}`;
         } else {
-            chatIcon = 'assets/images/chat.jpg';
+            chatIcon = 'src/assets/images/chat.jpg';
         }
         chatButton.style.backgroundImage = `url('${chatIcon}')`;
 

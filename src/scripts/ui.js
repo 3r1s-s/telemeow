@@ -194,7 +194,7 @@ function copy(text) {
 function avatar(data) {
     const avatarUrl = data.avatar 
         ? `https://uploads.meower.org/icons/${data.avatar}` 
-        : `assets/images/default.jpg`;
+        : `src/assets/images/default.jpg`;
 
     return {
         url: avatarUrl,

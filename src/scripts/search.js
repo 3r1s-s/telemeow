@@ -72,7 +72,7 @@ function searchResults() {
         chatResult.classList.add('search-result');
         chatResult.setAttribute('onclick', `chatPage('${chat._id}')`);
         chatResult.innerHTML = `
-            <div class="avatar-result" style="--image: url(${chat.icon ? `https://uploads.meower.org/icons/${chat.icon}` : `assets/images/chat.jpg`});"></div>
+            <div class="avatar-result" style="--image: url(${chat.icon ? `https://uploads.meower.org/icons/${chat.icon}` : `src/assets/images/chat.jpg`});"></div>
             <span class="search-result-name">${chat.nickname.sanitize()}</span>
         `;
         chatsResults.append(chatResult);

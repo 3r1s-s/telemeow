@@ -329,7 +329,7 @@ iframe {
     height: 80px;
     left: 50%;
     transform: translateX(-50%);
-    background-image: url(assets/images/cta.png);
+    background-image: url(src/assets/images/cta.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -523,7 +523,7 @@ iframe {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('assets/images/cta.svg');
+    background-image: url('src/assets/images/cta.svg');
     /* box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset;
     border-radius: 30px; */
 }
