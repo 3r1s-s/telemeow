@@ -141,7 +141,18 @@ const storage = (() => {
             get(plugin, key) {
                 return storagedata.plugins && storagedata.plugins[plugin] && storagedata.plugins[plugin][key];
             },
-
+            enable(plugin) {
+                if (storagedata.plugins && storagedata.plugins[plugin]) {
+                    storagedata.plugins[plugin].enabled = true;
+                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
+                }
+            },
+            disable(plugin) {
+                if (storagedata.plugins && storagedata.plugins[plugin]) {
+                    storagedata.plugins[plugin].enabled = false;
+                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
+                }
+            },
             set(plugin, key, value) {
                 if (!storagedata.plugins) {
                     storagedata.plugins = {};
@@ -152,14 +163,12 @@ const storage = (() => {
                 storagedata.plugins[plugin][key] = value;
                 localStorage.setItem('tele-data', JSON.stringify(storagedata));
             },
-
             delete(plugin, key) {
                 if (storagedata.plugins && storagedata.plugins[plugin]) {
                     delete storagedata.plugins[plugin][key];
                     localStorage.setItem('tele-data', JSON.stringify(storagedata));
                 }
             },
-
             clear(plugin) {
                 if (storagedata.plugins && storagedata.plugins[plugin]) {
                     delete storagedata.plugins[plugin];

@@ -231,7 +231,7 @@ function postEmbeds(links) {
 
                     let scriptTag = document.createElement('script');
                     scriptTag.setAttribute('type', 'text/javascript');
-                    scriptTag.setAttribute('src', 'scripts/tenor.js');
+                    scriptTag.setAttribute('src', 'src/scripts/tenor.js');
                     document.body.appendChild(scriptTag);
                 }
             }
