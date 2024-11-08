@@ -35,5 +35,8 @@ observeDOM(document.body, function (m) {
     m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes));
 
     m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes));
-    addedNodes.forEach(n => { if (n.nodeType == Node.TEXT_NODE) { console.log(n.textContent); n.textContent = n.textContent.replaceAll(/telemeow/gi, "telemiau") } })
+    addedNodes.forEach(n => { if (n.nodeType == Node.TEXT_NODE) {
+        if(!n.textContent || !String(n.textContent).match(/telemeow/gi)) return; //skip
+        n.textContent = n.textContent.replaceAll(/telemeow/gi, "telemiau")
+    } })
 });
