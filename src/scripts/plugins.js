@@ -47,11 +47,34 @@ function pluginsPage() {
                 </div>
                 <span class="plugin-description">${data.description}</span>
                 <div class="plugin-options">
-                ${storage.plugins.get(plugin) ? `<button class="plugin-button" onclick="storage.plugins.disable('${plugin}');openAlert({title: 'Refresh', message: 'Restart now to apply new plugins and their settings.', buttons: [ { text: 'Restart Now', action: 'window.location.reload()'}, { text: 'Later!', action: 'closeAlert()' } ]});">Disable</button>` : `<button class="plugin-button" onclick="storage.plugins.enable('${plugin}');openAlert({title: 'Refresh', message: 'Restart now to apply new plugins and their settings.', buttons: [ { text: 'Restart Now', action: 'window.location.reload()'}, { text: 'Later!', action: 'closeAlert()' } ]});">Enable</button>`}
+                <button class="plugin-button" onclick="togglePlugin('${plugin}');">${storage.plugins.get(plugin) ? 'Disable' : 'Enable'}</button>
                 </div>
                 `;
             })
 
         content.querySelector('.settings').appendChild(pluginElement);
     });
+}
+
+function togglePlugin(plugin) {
+    if (storage.plugins.get(plugin)) {
+        storage.plugins.disable(plugin);
+    } else {
+        storage.plugins.enable(plugin);
+    }
+    openAlert({
+        title: 'Refresh',
+        message: 'Restart now to apply new plugins and their settings.',
+        buttons: [
+            { text: 'Restart Now', action: 'window.location.reload()'},
+            { text: 'Later!', action: 'closeAlert();pluginsPage();' }
+        ]
+    });
+
+    content.innerHTML = `
+    <div class="settings">
+    <span class="settings-title">Plugins</span>
+
+    </div>
+    `;
 }
