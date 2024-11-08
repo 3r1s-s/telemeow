@@ -6,7 +6,9 @@ Copy the template folder (or just create your own) and name it to whatever your 
 
 Make sure it has a manifest!!
 
-And in ``plugins.js`` add your plugin to the consts ``plugins``
+And in ``plugins.js`` add your plugin to the const ``plugins``
+
+Keep things like images and sounds in an assets folder!
 
 ```
 const plugins = [
