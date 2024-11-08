@@ -1,5 +1,6 @@
 const plugins = [
-    'quote'
+    'quote',
+    'sentfrom',
 ];
 
 function setPlugins() {
@@ -10,5 +11,47 @@ function setPlugins() {
                 .then(text => window.eval(text));
             console.warn(`Loaded plugin: ${plugin}`);
         }
+    });
+}
+
+function pluginsPage() {
+    page = `plugins`;
+
+    titlebar.set(``);
+    titlebar.clear(true);
+    titlebar.show();
+    titlebar.back(`settingsPage()`);
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.style = ``;
+
+    content.innerHTML = `
+        <div class="settings">
+        <span class="settings-title">Plugins</span>
+
+        </div>
+    `;
+
+    plugins.forEach(plugin => {
+        const pluginElement = document.createElement('div');
+        pluginElement.classList.add('plugin-card');
+        fetch(`src/plugins/${plugin}/manifest.json`)
+            .then(response => response.json())
+            .then(data => {
+                pluginElement.innerHTML = `
+                <div class="plugin-title">
+                <span class="plugin-name">${data.name}</span>
+                <div class="plugin-icon" style="--image: url(src/plugins/${plugin}/${data.icon});"></div>
+                </div>
+                <span class="plugin-description">${data.description}</span>
+                <div class="plugin-options">
+                ${storage.plugins.get(plugin) ? `<button class="plugin-button" onclick="storage.plugins.disable('${plugin}');openAlert({title: 'Refresh', message: 'Restart now to apply new plugins and their settings.', buttons: [ { text: 'Restart Now', action: 'window.location.reload()'}, { text: 'Later!', action: 'closeAlert()' } ]});">Disable</button>` : `<button class="plugin-button" onclick="storage.plugins.enable('${plugin}');openAlert({title: 'Refresh', message: 'Restart now to apply new plugins and their settings.', buttons: [ { text: 'Restart Now', action: 'window.location.reload()'}, { text: 'Later!', action: 'closeAlert()' } ]});">Enable</button>`}
+                </div>
+                `;
+            })
+
+        content.querySelector('.settings').appendChild(pluginElement);
     });
 }
