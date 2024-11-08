@@ -1,7 +1,8 @@
 {
     "name": "Quote",
     "description": "Make it a quote! for TeleMeow.",
-    "author": "TeleMeow",
-    "version": "1.0.0",
+    "author": "Eris",
+    "website": "https://eris.pages.dev/",
+    "version": "1.0.1",
     "icon": "assets/icon.jpg"
 }

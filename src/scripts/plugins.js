@@ -42,11 +42,12 @@ function pluginsPage() {
             .then(data => {
                 pluginElement.innerHTML = `
                 <div class="plugin-title">
-                <span class="plugin-name">${data.name}</span>
+                <span class="plugin-name">${data.name}<span class="plugin-version">v${data.version}</span></span></span>
                 <div class="plugin-icon" style="--image: url(src/plugins/${plugin}/${data.icon});"></div>
                 </div>
                 <span class="plugin-description">${data.description}</span>
                 <div class="plugin-options">
+                <a class="plugin-author" href="${data.website}" target="_blank">Created by ${data.author}</a>
                 <button class="plugin-button" onclick="togglePlugin('${plugin}');">${storage.plugins.get(plugin) ? 'Disable' : 'Enable'}</button>
                 </div>
                 `;
