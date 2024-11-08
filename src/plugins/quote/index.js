@@ -1,3 +1,14 @@
+const originalFunction = postModal
+postModal = function(id){
+    originalFunction(id);
+
+    const modalBody = document.querySelector(".modal-body");
+
+    modalBody.innerHTML += `
+        <div class="post-modal-button" onclick="makeQuote('${id}');closeModal();"><div>Quote</div><div class="post-modal-icon"><img src="src/plugins/quote/assets/icon.jpg" style="width: 24px; height: 24px; border-radius: 100px;"></div></div>
+    `;
+}
+
 async function makeQuote(postid) {
     const data = await fetch(`https://api.meower.org/posts?id=${postid}`, {headers: {token: storage.get("token")}}).then(res => res.json());
     const avatarUrl = `${data.author.avatar ? `https://uploads.meower.org/icons/${data.author.avatar}` : `assets/images/default.jpg`}`;
@@ -98,6 +109,10 @@ async function makeQuote(postid) {
             console.error(err);
         }
     } else {
-        window.alert("Post cannot be blank!");
+        openAlert({
+            title: 'Blank Post',
+            message: 'Post cannot be blank!',
+        });
     }
+
 }

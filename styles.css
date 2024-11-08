@@ -1504,6 +1504,7 @@ iframe {
     display: grid;
     overflow: hidden;
     border-radius: 10px;
+    width: max-content;
 }
 
 .play-button {
@@ -2603,4 +2604,65 @@ img.embed:active {
 .search-header {
     margin: 10px;
     display: block;
+}
+
+.plugin-icon {
+    background-image: var(--image);
+    background-size: cover;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+}
+
+.plugin-card {
+    margin: 0 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--app-300);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.plugin-name {
+    font-size: 1.5em;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+.plugin-title {
+    display: flex;
+    align-items: center;
+}
+
+.plugin-options {
+    display: flex;
+    align-self: end;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.plugin-button {
+    background: var(--modal-600);
+    color: var(--modal-text);
+    border-radius: 100px;
+    border: none;
+    min-width: 100px;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    font-size: 1.05em;
+    font-weight: 500;
+    font-family: 'GG Sans';
+    transition: background 0.2s cubic-bezier(.2,0,0,1);
+}
+
+.plugin-button:active {
+    background: var(--modal-500);
+}
+
+.settings-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin: 0 20px;
 }

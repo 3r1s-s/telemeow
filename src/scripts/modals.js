@@ -199,7 +199,6 @@ function postModal(id) {
         <div class="post-modal-button" onclick="copy('${postCache[page].find(p => p._id === id).p.sanitize()}');closeModal();tooltip({title:'Copied!',icon:icon.copy})"><div>Copy</div><div class="post-modal-icon">${icon.copyLarge}</div></div>
             ` : ``}        
         <div class="post-modal-button" onclick="emojiModal('${id}')"><div>React</div><div class="post-modal-icon">${icon.emoji}</div></div>
-        <div class="post-modal-button" ><div>Apps & Commands</div><div class="post-modal-icon">${icon.commands}</div></div>
         <div class="post-modal-button" ><div>Report</div><div class="post-modal-icon">${icon.report}</div></div>
         `,
         style: `height: auto; min-height: 60%;`,

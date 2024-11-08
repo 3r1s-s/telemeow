@@ -138,40 +138,36 @@ const storage = (() => {
         },
 
         plugins: {
-            get(plugin, key) {
-                return storagedata.plugins && storagedata.plugins[plugin] && storagedata.plugins[plugin][key];
+            get(plugin) {
+                return storagedata && storagedata.plugins && storagedata.plugins[plugin];
             },
+
             enable(plugin) {
-                if (storagedata.plugins && storagedata.plugins[plugin]) {
-                    storagedata.plugins[plugin].enabled = true;
-                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
-                }
-            },
-            disable(plugin) {
-                if (storagedata.plugins && storagedata.plugins[plugin]) {
-                    storagedata.plugins[plugin].enabled = false;
-                    localStorage.setItem('tele-data', JSON.stringify(storagedata));
-                }
-            },
-            set(plugin, key, value) {
                 if (!storagedata.plugins) {
                     storagedata.plugins = {};
                 }
-                if (!storagedata.plugins[plugin]) {
-                    storagedata.plugins[plugin] = {};
-                }
-                storagedata.plugins[plugin][key] = value;
+                storagedata.plugins[plugin] = true;
                 localStorage.setItem('tele-data', JSON.stringify(storagedata));
             },
-            delete(plugin, key) {
-                if (storagedata.plugins && storagedata.plugins[plugin]) {
-                    delete storagedata.plugins[plugin][key];
+
+            disable(plugin) {
+                if (!storagedata.plugins) {
+                    storagedata.plugins = {};
+                }
+                storagedata.plugins[plugin] = false;
+                localStorage.setItem('tele-data', JSON.stringify(storagedata));
+            },
+
+            delete(plugin) {
+                if (storagedata.plugins) {
+                    delete storagedata.plugins[key];
                     localStorage.setItem('tele-data', JSON.stringify(storagedata));
                 }
             },
-            clear(plugin) {
-                if (storagedata.plugins && storagedata.plugins[plugin]) {
-                    delete storagedata.plugins[plugin];
+
+            clear() {
+                if (storagedata.plugins) {
+                    storagedata.plugins = {};
                     localStorage.setItem('tele-data', JSON.stringify(storagedata));
                 }
             }
@@ -552,7 +548,6 @@ function chatPage(chatId) {
                             <div class="message-input-container">
                                 <textarea class="message-input" oninput="autoResize()" placeholder="Send a message to ${name}..."></textarea>
                             </div>
-                            ${settings.get('commandButton') === 'true' ? `<div class="message-button" onclick="commandsModal();">${icon.commands}</div>` : ``}
                             <div class="message-button" onclick="emojiModal();">${icon.emoji}</div>
                             <div class="message-button message-send" onclick="sendPost();">${icon.send}</div>
                         </div>
@@ -785,7 +780,7 @@ function settingsPage() {
                 <div class="menu-button" onclick="settingsAppearance()"><span>Appearance</span>${icon.arrow}</div>
                 <div class="menu-button"><span>Notifications</span>${icon.arrow}</div>
                 <div class="menu-button"><span>Language</span>${icon.arrow}</div>
-                <div class="menu-button"><span>Plugins</span>${icon.arrow}</div>
+                <div class="menu-button" onclick="pluginsPage()"><span>Plugins</span>${icon.arrow}</div>
                 <div class="menu-button" onclick="settingsSafety()"><span>Safety & Privacy</span>${icon.arrow}</div>
             </div>
             <div class="settings-options" style="display: ${settings.get('debugMode') === 'true' ? 'flex' : 'none'}">
@@ -1105,7 +1100,6 @@ function debugPage() {
         <div class="settings">
             <div class="settings-options">
                 <div class="menu-button" id="disableLogs" onclick="toggleSetting('disableLogs')"><span>Disable websocket logs</span><div class="toggle">${icon.check}</div></div>
-                <div class="menu-button" id="commandButton" onclick="toggleSetting('commandButton')"><span>Show commands button</span><div class="toggle">${icon.check}</div></div>
             </div>
             <span class="settings-options-title">Device</span>
             <div class="json-block">${JSON.stringify(device, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
@@ -1121,5 +1115,47 @@ function debugPage() {
         if (settings.get(option.id) === 'true') {
             option.classList.add('checked');
         }
+    });
+}
+
+function pluginsPage() {
+    page = `plugins`;
+
+    titlebar.set(``);
+    titlebar.clear(true);
+    titlebar.show();
+    titlebar.back(`settingsPage()`);
+
+    navigation.show();
+    content.classList.remove('max');
+    content.scrollTo(0,0);
+    content.style = ``;
+
+    content.innerHTML = `
+        <div class="settings">
+        <span class="settings-title">Plugins</span>
+
+        </div>
+    `;
+
+    plugins.forEach(plugin => {
+        const pluginElement = document.createElement('div');
+        pluginElement.classList.add('plugin-card');
+        fetch(`src/plugins/${plugin}/manifest.json`)
+            .then(response => response.json())
+            .then(data => {
+                pluginElement.innerHTML = `
+                <div class="plugin-title">
+                <span class="plugin-name">${data.name}</span>
+                <div class="plugin-icon" style="--image: url(src/plugins/${plugin}/${data.icon});"></div>
+                </div>
+                <span class="plugin-description">${data.description}</span>
+                <div class="plugin-options">
+                ${storage.plugins.get(plugin) ? `<button class="plugin-button" onclick="storage.plugins.disable('${plugin}')">Disable</button>` : `<button class="plugin-button" onclick="storage.plugins.enable('${plugin}')">Enable</button>`}
+                </div>
+                `;
+            })
+
+        content.querySelector('.settings').appendChild(pluginElement);
     });
 }

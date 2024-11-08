@@ -1,17 +1,14 @@
+const plugins = [
+    'quote'
+];
+
 function setPlugins() {
-        if (storage.get('plugins')) {
-        for (const plugin in storage.get('plugins')) {
-            if (storage.get('plugins')[plugin].enabled) {
-                try {
-                    const code = storage.get('plugins')[plugin].code;
-                    if (typeof code === 'string') {
-                        eval(code);
-                        console.info(`Loaded plugin: ${plugin}`);
-                    } else {
-                    }
-                } catch (e) {
-                }
-            }
+    plugins.forEach(plugin => {
+        if (storage.plugins.get(plugin) === true) {
+            fetch(`src/plugins/${plugin}/index.js`)
+                .then(response => response.text())
+                .then(text => window.eval(text));
+            console.warn(`Loaded plugin: ${plugin}`);
         }
-    }
+    });
 }
