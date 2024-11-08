@@ -58,6 +58,9 @@
     --modal-700: var(--app-700);
     --modal-800: var(--app-800);
     --modal-900: var(--app-900);
+
+    --brand-purple: #6955AD;
+    --brand-purple-dark: #2B2347;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -544,7 +547,7 @@ iframe {
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    background-image: linear-gradient(to right,#5892f5,#1661ec);
+    background-image: linear-gradient(to bottom,var(--brand-purple), var(--brand-purple-dark));
     z-index: 1;
 }
 
