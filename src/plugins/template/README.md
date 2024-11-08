@@ -1,5 +1,20 @@
 # TeleMeow Plugins & What Things Do
 
+## How to add your plugin
+
+Copy the template folder (or just create your own) and name it to whatever your plugin is called (``camelCase`` or something, and keep it unique!)
+
+Make sure it has a manifest!!
+
+And in ``plugins.js`` add your plugin to the consts ``plugins``
+
+```
+const plugins = [
+    'plugin1',
+    'plugin2',
+];
+```
+
 ## Modals and Alerts
 
 ```
