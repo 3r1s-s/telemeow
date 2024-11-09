@@ -544,10 +544,10 @@ iframe {
 .login-title {
     font-weight: 600;
     font-size: 1.5em;
-    -webkit-text-fill-color: transparent;
+    /* -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    background-image: linear-gradient(to bottom,var(--brand-purple), var(--brand-purple-dark));
+    background-image: linear-gradient(to bottom,var(--brand-purple), var(--brand-purple-dark)); */
     z-index: 1;
 }
 
@@ -568,13 +568,13 @@ iframe {
     background: var(--app-400);
     outline: none;
     border: 2px solid var(--app-800);
-    caret-color: var(--app-blue);
+    caret-color: var(--brand-purple);
     color: var(--app-text);
     transition: border .15s ease-out;
 }
 
 .login-input:focus {
-    border: 2px solid var(--app-blue);
+    border: 2px solid var(--brand-purple);
 }
 
 .login-input-container {
@@ -591,10 +591,12 @@ iframe {
     position: absolute;
     left: 6px;
     top: 5.5px;
+    border-radius: 5px;
 }
 
 .login-input:focus + label {
-    color: var(--app-blue);
+    font-weight: 600;
+    color: var(--brand-purple);
 }
 
 .login-input:focus + label,
@@ -610,14 +612,14 @@ iframe {
     border-radius: 5px;
     font-size: 1em;
     border: none;
-    background: var(--app-blue);
+    background: var(--brand-purple);
     color: var(--app-text);
     font-weight: 600;
     transition: background 0.2s cubic-bezier(.2,0,0,1);
 }
 
 .login-button:active {
-    background: var(--app-dark-blue);
+    background: var(--brand-purple-dark);
 }
 
 .modal-outer {
@@ -1042,8 +1044,8 @@ iframe {
 }
 
 .checked .toggle {
-    border: 2px solid var(--app-blue);
-    background-color: var(--app-blue);
+    border: 2px solid var(--brand-purple);
+    background-color: var(--brand-purple);
 }
 
 .toggle svg {
@@ -1208,7 +1210,7 @@ iframe {
 }
 
 .selected .theme-colour {
-    border: 3px solid var(--app-blue);
+    border: 3px solid var(--brand-purple);
 }
 
 .theme-name {
@@ -2201,7 +2203,7 @@ img.embed:active {
 }
 
 .save-profile-button {
-    background-color: var(--app-blue);
+    background-color: var(--brand-purple);
     color: var(--app-text);
     font-size: 0.9em;
     font-weight: 500;
@@ -2214,10 +2216,11 @@ img.embed:active {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.2s cubic-bezier(.2,0,0,1);
   }
 
 .save-profile-button:active {
-    background-color: var(--app-dark-blue);
+    background-color: var(--brand-purple-dark);
 }
 
 .color-outer {
