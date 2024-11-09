@@ -32,7 +32,7 @@ function emojiModal(id) {
         chatsRow.appendChild(chatButton);
     }
 
-    const emojis = ["😃","😄","😁","😆","😅","😂","😭","😉","😗","😚","😘","😍","👍","👎", "👋"];
+    const emojis = ["😃","😄","😁","😆","😅","😂","😭","😔","💀","😉","😗","😚","😘","😍","👍","👎", "👋","🍪"];
     emojis.forEach(emoji => {
         const emojiButton = document.createElement("div");
         emojiButton.classList.add("emoji-button");
