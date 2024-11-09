@@ -937,10 +937,10 @@ function settingsAppearance() {
     navigation.show();
     content.classList.remove('max');
     content.scrollTo(0,0);
-    content.style = ``;
+    content.style = `transition: background 0.4s cubic-bezier(.2,0,0,1), color 0.4s cubic-bezier(.2,0,0,1), border-color 0.4s cubic-bezier(.2,0,0,1);`;
 
     content.innerHTML = `
-        <div class="settings">
+        <div class="settings appearance">
             <div class="theme-preview">
                 <div class="post" id="b68ab58a-998e-4f4e-8814-5cd1fe2223bb">
                     <div class="avatar-outer">
@@ -958,7 +958,7 @@ function settingsAppearance() {
                 </div>
             </div>
             <div class="theme-options">
-                <div class="theme-option dark" onclick="theme.set('dark')" style="--app-500: #1a1825;">
+                <div class="theme-option dark" onclick="theme.set('dark')" style="--app-500: #1a1825;--app-900: #3e3b50;">
                     <div class="theme-colour">
                     </div>
                     <div class="theme-name">
@@ -990,7 +990,7 @@ function settingsAppearance() {
                     <div class="theme-colour">
                     </div>
                     <div class="theme-name">
-                        <span>Thirteen</span>
+                        <span>Blacker</span>
                     </div>
                 </div>
             </div>

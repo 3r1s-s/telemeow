@@ -42,6 +42,9 @@
     --modal-800: var(--app-800);
     --modal-900: var(--app-900);
 
+    --brand-purple: #a083ff;
+    --brand-purple-dark: #4d3f7d;
+
     .chat .chat-wrapper {
         background: var(--app-100);
     } 
@@ -187,6 +190,9 @@
     --app-purple: #c6a0f6;
     --app-orange: #ee99a0;
 
+    --brand-purple: #8aadf4;
+    --brand-purple-dark: #b2c8e4;
+
     .chat-icon-svg {
         background: var(--app-300);
     }
@@ -231,6 +237,9 @@
     --modal-800: var(--app-800);
     --modal-900: var(--app-900);
 
+    --brand-purple: var(--app-orange);
+    --brand-purple-dark: var(--app-dark-orange);
+
     --titlebar: rgba(0, 0, 0, 0.8);
 
     .chat {
@@ -252,9 +261,5 @@
     .checked .toggle {
         border: 2px solid var(--app-orange);
         background-color: var(--app-orange);
-    }
-
-    .selected .theme-colour {
-        border: 3px solid var(--app-orange);
     }
 }
