@@ -937,7 +937,6 @@ function settingsAppearance() {
     navigation.show();
     content.classList.remove('max');
     content.scrollTo(0,0);
-    content.style = `transition: background 0.4s cubic-bezier(.2,0,0,1), color 0.4s cubic-bezier(.2,0,0,1), border-color 0.4s cubic-bezier(.2,0,0,1);`;
 
     content.innerHTML = `
         <div class="settings appearance">
